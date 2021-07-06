@@ -130,13 +130,13 @@ x_f=[]
 y_f=[]
 #scale_fac_list=[0.0001,0.001,0.01,0.1,0.4,0.7,1,2,4,7,10]
 scale_fac_list=[0.5,1,2,3,4,5,6,7,8,9,10]
-nl=100
+nl=80
 for i in range(nl):
     print(i)
     tpi=tpi0*tpnum
     #
     #scale_fac=scale_fac_list[i]
-    scale_fac=0.5*0.125*i+0.5*0.75
+    scale_fac=0.125*(i+1)
     hg=hg0*(scale_fac**2)
     res=swp_lw(scale_fac*fg)
     print(frac_power(hg,sigmag,scale_fac*fg))
