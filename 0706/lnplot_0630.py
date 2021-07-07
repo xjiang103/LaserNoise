@@ -3,14 +3,14 @@ import numpy as np
 import matplotlib
 matplotlib.rcParams.update({'font.size': 16})
 print(3/5)
-f=open("fswp_0706_1.txt","r")
+f=open("fswp_0706_2.txt","r")
 xa=[]
 ya=[]
 ta=[]
 hg0=1100
 fg0=234*(1e3)
 omegar=(1e6)*2*np.pi
-n=1/2
+n=1
 sigmag=1.4*(1e3)
 sigman=0.0407*omegar/n
     
@@ -35,7 +35,7 @@ plt.plot(xa,ta,'o-',label="Estimate")
 f.close()
 plt.xlabel("fbump/(ΩR/2π))")
 plt.ylabel('error')
-plt.title("2-photon Pi pulse error")
+plt.title("1-photon 2Pi pulse error")
 plt.legend(loc="upper right")
 
 plt.show()
