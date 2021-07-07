@@ -21,6 +21,10 @@ f=open(filestr,"w")
 nrun=100
 num_cores=64
 tpnum=tpi_num
+<<<<<<< HEAD
+=======
+print("tpi="+str(tpnum))
+>>>>>>> master
 #rabi parameters
 omega_0=2*math.pi*(1)*(1e6)
 tpi0=1*math.pi/(omega_0)
