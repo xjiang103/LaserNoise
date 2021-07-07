@@ -1,0 +1,10 @@
+Rabi Frequency omega= 1*2pi MHz
+White noise, height of the noise(h_0)=1000/pi Hz
+White noise bandwidth fmax= 10 MHz
+Number of samples nf = 10000
+Sampling interval = fmax/nf
+
+number of runs = 10000
+
+pi error
+
