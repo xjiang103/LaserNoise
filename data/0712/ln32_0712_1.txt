@@ -140,3 +140,60 @@ nl is 117
 4.452808039507425e-05
 33
 0.9945604692765322
+6.801351959854429e-05
+4.4528080395074256e-05
+34
+1.0238122477846654
+6.837849892263724e-05
+4.452808039507424e-05
+35
+1.0530640262927988
+6.799134955221398e-05
+4.452808039507424e-05
+36
+1.082315804800932
+6.78119346156951e-05
+4.452808039507425e-05
+37
+1.1115675833090655
+6.886623042807468e-05
+4.452808039507425e-05
+38
+1.1408193618171987
+Traceback (most recent call last):
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py", line 404, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/home/ac.jiang/anaconda/lib/python3.8/multiprocessing/queues.py", line 102, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
+Traceback (most recent call last):
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py", line 404, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/home/ac.jiang/anaconda/lib/python3.8/multiprocessing/queues.py", line 116, in get
+    return _ForkingPickler.loads(res)
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/cloudpickle/cloudpickle.py", line 1095, in subimport
+    def subimport(name):
+KeyboardInterrupt
+
+Traceback (most recent call last):
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py", line 404, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/home/ac.jiang/anaconda/lib/python3.8/multiprocessing/queues.py", line 102, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
+Traceback (most recent call last):
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py", line 404, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/home/ac.jiang/anaconda/lib/python3.8/multiprocessing/queues.py", line 102, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
+Traceback (most recent call last):
+  File "/home/ac.jiang/anaconda/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py", line 404, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/home/ac.jiang/anaconda/lib/python3.8/multiprocessing/queues.py", line 102, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
