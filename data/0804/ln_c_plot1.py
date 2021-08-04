@@ -17,7 +17,7 @@ aaa=popt[0]
 t2fit_arr=func(lwfit_arr,aaa)
 
 print(aaa)
-
+print(1000/(2*np.pi))
 plt.clf()
 plt.plot(lw_arr,t2_arr,'ro')
 plt.plot(lwfit_arr,t2fit_arr,'g')

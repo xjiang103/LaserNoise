@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib
-tpnum=8
+tpnum=7
 matplotlib.rcParams.update({'font.size': 16})
 filestr="fmaxswp_0802_"+str(tpnum)+".txt"
 f=open(filestr,"r")

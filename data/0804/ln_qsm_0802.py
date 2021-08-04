@@ -12,7 +12,7 @@ from scipy.optimize import curve_fit
 nrun=100
 num_cores=8
 
-tpnum=8
+tpnum=7
 filestr="fmaxswp_0802_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
