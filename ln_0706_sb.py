@@ -9,7 +9,7 @@ from scipy.integrate import solve_ivp
 from scipy import stats
 import argparse
 
-
+#program for generating the 07/07 data"
 parser = argparse.ArgumentParser(description='Length of pulse/(π/Ω)')
 parser.add_argument('-tpi','--tpi_number', help='Tpi_number', required=True, type=int)
 args = vars(parser.parse_args())
@@ -19,12 +19,11 @@ filestr="fswp_0706_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
 nrun=100
-num_cores=64
+num_cores=1
 tpnum=tpi_num
-<<<<<<< HEAD
-=======
+
+
 print("tpi="+str(tpnum))
->>>>>>> master
 #rabi parameters
 omega_0=2*math.pi*(1)*(1e6)
 tpi0=1*math.pi/(omega_0)
