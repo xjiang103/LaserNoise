@@ -15,11 +15,11 @@ parser.add_argument('-tpi','--tpi_number', help='Tpi_number', required=True, typ
 args = vars(parser.parse_args())
 tpi_num = args["tpi_number"]
 
-filestr="fswp_0706_"+str(tpi_num)+".txt"
+filestr="fswp_0810_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
 nrun=100
-num_cores=1
+num_cores=64
 tpnum=tpi_num
 
 
@@ -140,7 +140,7 @@ for i in range(nl):
     #
     #scale_fac=scale_fac_list[i]
     #scale_fac=0.375*(i+61)
-    scale_fac=(2+6*(i+1)/nl)*(omega_0/(2*np.pi)))/fg
+    scale_fac=(2+6*(i+1)/nl)*(omega_0/(2*np.pi))/fg
     hg=hg0*(scale_fac**2)
     res=swp_lw(scale_fac*fg)
     print(frac_power(hg,sigmag,scale_fac*fg))
