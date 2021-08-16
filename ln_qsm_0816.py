@@ -12,7 +12,7 @@ from scipy.optimize import curve_fit
 nrun=500
 num_cores=8
 
-tpnum=1
+tpnum=2
 filestr="fmaxswp_0802_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
@@ -73,7 +73,7 @@ def run_job():
     y0=[1+0.0j,0+0.0j]
     t0=[0,tpi]
 
-    sol = solve_ivp(feq,t0,y0,rtol=1e-7,atol=3e-7)
+    sol = solve_ivp(feq,t0,y0,rtol=1e-14,atol=1e-14)
     yf=(sol.y[0][-1],sol.y[1][-1])
     #print(yf)
     return [(abs(yf[0]))**2,(abs(yf[1]))**2]
