@@ -18,8 +18,8 @@ tpi_num = args["tpi_number"]
 filestr="fswp_0706_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
-nrun=100
-num_cores=1
+nrun=5
+num_cores=8
 tpnum=tpi_num
 
 
@@ -139,7 +139,7 @@ for i in range(nl):
     tpi=tpi0*tpnum
     #
     #scale_fac=scale_fac_list[i]
-    scale_fac=0.125*(i+1)
+    scale_fac=4*0.125*(i+1)
     hg=hg0*(scale_fac**2)
     res=swp_lw(scale_fac*fg)
     print(frac_power(hg,sigmag,scale_fac*fg))

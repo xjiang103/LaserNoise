@@ -10,10 +10,10 @@ from scipy import stats
 from scipy.optimize import curve_fit
 
 nrun=100
-num_cores=8
+num_cores=64
 
-tpnum=1
-filestr="fmaxswp_0802_"+str(tpnum)+".txt"
+tpnum=6
+filestr="fmaxswp_0820_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -73,7 +73,7 @@ def run_job():
     y0=[1+0.0j,0+0.0j]
     t0=[0,tpi]
 
-    sol = solve_ivp(feq,t0,y0,rtol=1e-7,atol=3e-7)
+    sol = solve_ivp(feq,t0,y0,rtol=1e-14,atol=3e-14)
     yf=(sol.y[0][-1],sol.y[1][-1])
     #print(yf)
     return [(abs(yf[0]))**2,(abs(yf[1]))**2]
@@ -116,7 +116,7 @@ quasarr=[]
 for i in range(nl):
     print(i)
     tpi=tpnum*tpi0
-    lwset=1000*(i+1)
+    lwset=10000*(i+1)
     lwfactor=1
     res=swp_lw(lwset)
     print(res[0])
