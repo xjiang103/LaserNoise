@@ -19,7 +19,7 @@ nrun=200
 num_cores=64
 
 tpnum=tpi_num
-filestr="fmaxswp_0830_"+str(tpnum)+".txt"
+filestr="fmaxswp_0829_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 units=1e6
 
@@ -146,8 +146,8 @@ quasarr=[]
 for i in range(nl):
     print(i)
     tpi=tpnum*tpi0
-    lwset1=100000*(i+1)
-    lwset2=100000*(i+1)
+    lwset1=10000*(i+1)
+    lwset2=10000*(i+1)
     lwfactor=1
     res=swp_lw(lwset1,lwset2)
     print(res[0])
