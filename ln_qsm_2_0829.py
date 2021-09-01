@@ -19,7 +19,7 @@ nrun=200
 num_cores=64
 
 tpnum=tpi_num
-filestr="fmaxswp_0829_"+str(tpnum)+".txt"
+filestr="fmaxswp_0830_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 units=1e6
 
