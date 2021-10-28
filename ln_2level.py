@@ -108,15 +108,15 @@ def swp_lw(lw):
             nn=nn+1
             sumn=sumn+(r0[k]-meanr0)**2
     print("large error"+str(2*lerrorcount))
-    stdp=np.sqrt(sump/float(npo))
-    stdn=np.sqrt(sumn/float(nn))
+    stdp=0
+    stdn=0
     return [meanr0,(np.std(totresult,axis=0))[0],stdp,stdn]
 
 timet=time.time()
 swparr=[[100,1],[1000,1],[100,1],[10000,2],[1000,2],[100,2]]
 for i in range(1):
     tpi=tpi0*swparr[i][1]
-    lwset=swparr[i][0]
+    lwset=0
     results = swp_lw(lwset)
     mean_arr=results[0]
     std_arr=results[1]

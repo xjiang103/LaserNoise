@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib
-tpnum=8
+tpnum=2
 matplotlib.rcParams.update({'font.size': 16})
-filestr="fmaxswp_0829_"+str(tpnum)+".txt"
+filestr="fmaxswp_0915_"+str(tpnum)+".txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -25,7 +25,7 @@ plt.yscale('log')
 if (tpnum%2==0):
     plt.ylim(10**(-6),10**(-3))
 plt.xlabel("Linewidth/kHz")
-plt.ylabel('error')
+plt.ylabel('Error')
 plt.title("T="+str(tpnum)+"π/Ω")
 plt.show()
 

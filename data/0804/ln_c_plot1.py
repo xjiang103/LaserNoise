@@ -23,7 +23,7 @@ t2theo_arr=func(lwfit_arr,theoconst)
 
 plt.clf()
 plt.plot(lw_arr,t2_arr,'ro',label="T2,numerics")
-plt.plot(lwfit_arr,t2fit_arr,label="Fitting numerics to 1/x function")
+#plt.plot(lwfit_arr,t2fit_arr,label="Fitting numerics to 1/x function")
 plt.plot(lwfit_arr,t2theo_arr,label="Theory")
 
 plt.xlabel("Linewidth/kHz")
