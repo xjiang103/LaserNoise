@@ -13,7 +13,7 @@ nrun=30
 num_cores=8
 
 tpnum=2
-filestr="fmaxswp_0820_"+str(tpnum)+".txt"
+filestr="fmaxswp_1103_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -148,5 +148,5 @@ for i in range(nl):
 
 
 for i in range(nl):
-    f.write(str(x1[i])+' '+str(y1[i])+' '+str(quasarr[i])+'\n')
+    f.write(str(x1[i])+' '+str(y1[i])+' '+str(quasarr[i])+' '+str(sp[i])+' '+str(sn[i])+'\n')
 f.close()

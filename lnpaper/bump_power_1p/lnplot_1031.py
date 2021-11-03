@@ -16,7 +16,7 @@ for i in range(5):
     x,y,stdp,stdn=r.split()
     xa.append(float(x))
     ya.append(float(y))
-    stdpa.append(float(x)+float(stdp))
+    stdpa.append(float(y)+float(stdp))
     stdna.append(float(y)-float(stdn))
 plt.plot(xa,ya,'o-',label="Error")
 plt.plot(xa,stdpa,'r',alpha=0.2,label="Uncertainty")
