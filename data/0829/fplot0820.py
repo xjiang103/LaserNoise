@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 tpnum=2
 matplotlib.rcParams.update({'font.size': 16})
-filestr="fmaxswp_0915_"+str(tpnum)+".txt"
+filestr="fmaxswp_0830_"+str(tpnum)+".txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
