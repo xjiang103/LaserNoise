@@ -20,7 +20,7 @@ tpi_num = args["tpi_number"]
 num_cores=64
 nrun=200
 units=1e6
-f=open("f3swp2_0723.txt","w")
+f=open("f3swp2_1107.txt","w")
 avenum=1
 
 #rabi parameters
