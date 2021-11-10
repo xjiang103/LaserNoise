@@ -21,7 +21,7 @@ num_cores=64
 nrun=128
 units=1e6
 filestr="f3swp"+str(tpi_num)+"_1107.txt"
-f=open("filestr","w")
+f=open(filestr,"w")
 print(filestr)
 avenum=1
 
