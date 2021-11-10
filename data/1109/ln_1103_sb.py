@@ -18,7 +18,11 @@ tpi_num = args["tpi_number"]
 filestr="fswp_1103_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
-nrum=100
+<<<<<<< HEAD
+nrun=200
+=======
+nrun=100
+>>>>>>> 3852bcd99dbfba76ccf55fbbfc3a5b4c6f31a799
 num_cores=64
 tpnum=tpi_num
 
