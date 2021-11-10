@@ -18,11 +18,18 @@ tpi_num = args["tpi_number"]
 
 
 num_cores=64
-nrun=200
+nrun=128
 units=1e6
-f=open("f3swp2_0723.txt","w")
+filestr="f3swp"+str(tpi_num)+"_1107.txt"
+f=open("filestr","w")
+print(filestr)
 avenum=1
 
+scale_fac0=1.0
+
+hg0=1100
+fg=234*(1e3)
+sigmag=1.4*(1e3)
 #rabi parameters
 omega1=2*np.pi*(44.72)*(units)
 omega2=2*np.pi*(44.72)*(units)
@@ -91,18 +98,7 @@ def phigen2(t,phase_arr):
 def frac_power(hg,sigmag,fg):
     return np.sqrt(np.sqrt(2*np.pi))*hg*sigmag/fg**2
 
-def s_nu(f,lw):
-   # sigmafc=lw/4
-    hg0=1100
-    fg0=234*(1e3)
-    sigmag=1.4*(1e3)
-
-    scale_fac=lw/fg0
-
-    hg=hg0*(scale_fac**2)
-    fg=lw
-    
-
+def s_nu(f,fg):
     snu=hg*np.exp(-(f-fg)**2/(2*sigmag**2))
     
     return snu/(f*f)
@@ -148,7 +144,10 @@ def swp_lw(lw1,lw2):
 ##        res.append(run_job())
 
     totresult=np.array(res)
-    r0=totresult[:,2]
+    if ((tpinum %2)==1):
+        r0=totresult[:,0]
+    else:
+        r0=totresult[:,2]
     meanr0=np.mean(r0)
     sump=0.0
     npo=0.0
@@ -168,21 +167,12 @@ def swp_lw(lw1,lw2):
 
 timet=time.time()
 swparr=[[10000,1],[1000,1],[100,1],[10000,2],[1000,2],[100,2]]
-x_fmax=[]
-x4_fmax=[]
-y1_fmax=[]
-sp_fmax=[]
-sn_fmax=[]
-y2_fmax=[]
-y3_fmax=[]
-y4_fmax=[]
-y4_stdp=[]
-y4_stdn=[]
-s2_fmax=[]
-eprev=0
-eprevacc=0
-stdpacc=0
-stdnacc=0
+
+x_f=[]
+y_f=[]
+sn=[]
+sp=[]
+
 
 fg_start=234*(1e3)
 nl=80
@@ -201,9 +191,8 @@ for i in range(nl):
     x_f.append(scale_fac*fg/(omega_0/(2*np.pi)))
     sp.append(res[1])
     sn.append(res[2])
-    print("-------")
-for i in range(int(nl)):
     f.write(str(x_f[i])+" "+str(y_f[i])+" "+str(sp[i])+" "+str(sn[i])+"\n")
+    print("-------")
 f.close()
 #plt.plot(x_fmax,y1_fmax,lw=2,label=r"simulation")
 #plt.plot(x_fmax,y2_fmax,lw=2,label=r"quasi-static")

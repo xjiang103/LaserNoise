@@ -18,11 +18,7 @@ tpi_num = args["tpi_number"]
 filestr="fswp_1103_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
-<<<<<<< HEAD
-nrun=200
-=======
 nrun=100
->>>>>>> 3852bcd99dbfba76ccf55fbbfc3a5b4c6f31a799
 num_cores=64
 tpnum=tpi_num
 
@@ -152,11 +148,7 @@ for i in range(nl):
     y_f.append(res[0])
     x_f.append(scale_fac*fg/(omega_0/(2*np.pi)))
     sp.append(res[1])
-<<<<<<< HEAD
-    sp.append(res[2])
-=======
     sn.append(res[2])
->>>>>>> 3852bcd99dbfba76ccf55fbbfc3a5b4c6f31a799
     print("-------")
     
 for i in range(int(nl)):

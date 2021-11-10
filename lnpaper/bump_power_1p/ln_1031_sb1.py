@@ -8,26 +8,22 @@ import random
 from scipy.integrate import solve_ivp
 from scipy import stats
 import argparse
+plt.rcParams.update({'font.size': 22})
 
-#program for generating the 07/07 data"
+
 parser = argparse.ArgumentParser(description='Length of pulse/(π/Ω)')
 parser.add_argument('-tpi','--tpi_number', help='Tpi_number', required=True, type=int)
 args = vars(parser.parse_args())
 tpi_num = args["tpi_number"]
 
-filestr="fswp_1103_"+str(tpi_num)+".txt"
-f=open(filestr,"w")
+
 #number of runs for averaging
-<<<<<<< HEAD
-nrun=200
-=======
-nrun=100
->>>>>>> 3852bcd99dbfba76ccf55fbbfc3a5b4c6f31a799
+nrun=400
 num_cores=64
 tpnum=tpi_num
+filestr="hgswp_1031_"+str(tpnum)+".txt"
+f=open(filestr,"w")
 
-
-print("tpi="+str(tpnum))
 #rabi parameters
 omega_0=2*math.pi*(1)*(1e6)
 tpi0=1*math.pi/(omega_0)
@@ -42,7 +38,7 @@ df=fmin
 scale_fac0=1.0
 
 hg0=1100
-fg=234*(1e3)
+fg=1000*(1e3)
 sigmag=1.4*(1e3)
 
 #pre-calculating some constants
@@ -100,11 +96,13 @@ def swp_lw(lw):
         s_nu_arr[k] = 2*np.sqrt(s_nu((k+1)*df,lw)*df)
     res=[]
     
-##    for count in range(nrun):
-##        res.append(run_job())
     results = Parallel(n_jobs=num_cores,backend="loky")(delayed(run_job)() for count in range(nrun))
     res = np.array(results)
     
+##    for count in range(nrun):
+##        res.append(run_job())
+
+        
     totresult=np.array(res)
     if ((tpnum %2)==1):
         r0=totresult[:,0]
@@ -114,12 +112,13 @@ def swp_lw(lw):
     meanr0=np.mean(r0)
     print(meanr0)
     sump=0.0
-    npo=0.0
+    npo=1.0
     sumn=0.0
-    nn=0.0
+    nn=1.0
+    stdp=0
+    stdn=0
     for k in range(nrun):
         if (r0[k]>meanr0):
-
             npo=npo+1
             sump=sump+(r0[k]-meanr0)**2
         else:
@@ -133,40 +132,36 @@ timet=time.time()
 
 x_f=[]
 y_f=[]
-sp=[]
-sn=[]
-#scale_fac_list=[0.0001,0.001,0.01,0.1,0.4,0.7,1,2,4,7,10]
-scale_fac_list=[0.5,1,2,3,4,5,6,7,8,9,10]
-nl=80
-for i in range(nl):
+stdp_f=[]
+stdn_f=[]
+
+nl=5
+for i in range(5):
     print(i)
     tpi=tpi0*tpnum
-    #
+    
     #scale_fac=scale_fac_list[i]
-    scale_fac=4*0.125*(i+1)
-    hg=hg0*(scale_fac**2)
-    res=swp_lw(scale_fac*fg)
-    print(frac_power(hg,sigmag,scale_fac*fg))
+    
+    hg=1*hg0*(10**(i+1))
+    res=swp_lw(fg)
+    print(frac_power(hg,sigmag,fg))
     print(1-res[0])
     
     y_f.append(res[0])
-    x_f.append(scale_fac*fg/(omega_0/(2*np.pi)))
-    sp.append(res[1])
-<<<<<<< HEAD
-    sp.append(res[2])
-=======
-    sn.append(res[2])
->>>>>>> 3852bcd99dbfba76ccf55fbbfc3a5b4c6f31a799
+    x_f.append(frac_power(hg,sigmag,fg))
+    stdp_f.append(res[1])
+    stdn_f.append(res[2])
     print("-------")
-    
-for i in range(int(nl)):
-    f.write(str(x_f[i])+" "+str(y_f[i])+" "+str(sp[i])+" "+str(sn[i])+"\n")
-f.close()
 
+for i in range(nl):
+    f.write(str(x_f[i])+' '+str(y_f[i])+' '+str(stdp_f[i])+' '+str(stdn_f[i])+'\n')
+f.close()
 plt.plot(x_f,y_f,'o-')
-plt.xlabel("fg/omega_0")
+##for i in range(int(nl)):
+##    plt.plot([x_f[i],x_f[i]],[y_f[i]+stdp_f[i],y_f[i]-stdn_f[i]],'r')
+plt.xlabel("Frac_Power")
 plt.ylabel("Error")
-#plt.yscale("log")
-#plt.xscale("log")
-plt.title("Error at time="+str(tpnum)+"π/Ω, sweeping fg")
+plt.yscale("log")
+plt.xscale("log")
+plt.title("Error at time="+str(tpnum)+"π/Ω, sweeping hg")
 plt.show()

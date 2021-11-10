@@ -9,11 +9,11 @@ from scipy.integrate import solve_ivp,quad
 from scipy import stats
 from scipy.optimize import curve_fit
 
-nrun=30
-num_cores=8
+nrun=100
+num_cores=64
 
-tpnum=2
-filestr="fmaxswp_0820_"+str(tpnum)+".txt"
+tpnum=1
+filestr="fmaxswp_1109_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -23,7 +23,7 @@ tpi=tpi0
 #frequency domain sample parameters
 fmax=0.01*omega_0/(2*math.pi)
 
-nl=25
+nl=100
 nf=10000
 fmin=fmax/nf
 df=fmin
@@ -148,5 +148,5 @@ for i in range(nl):
 
 
 for i in range(nl):
-    f.write(str(x1[i])+' '+str(y1[i])+' '+str(quasarr[i])+'\n')
+    f.write(str(x1[i])+' '+str(y1[i])+' '+str(quasarr[i])+' '+str(sp[i])+' '+str(sn[i])+'\n')
 f.close()
