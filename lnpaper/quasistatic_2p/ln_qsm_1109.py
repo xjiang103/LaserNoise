@@ -9,11 +9,11 @@ from scipy.integrate import solve_ivp,quad
 from scipy import stats
 from scipy.optimize import curve_fit
 
-nrun=10
+nrun=100
 num_cores=8
 
 tpnum=1
-filestr="fmaxswp_1110_int_"+str(tpnum)+".txt"
+filestr="fmaxswp_1110_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -23,10 +23,11 @@ tpi=tpi0
 #frequency domain sample parameters
 fmax=0.01*omega_0/(2*math.pi)
 
-nl=100
+nl=80
 nf=10000
 fmin=fmax/nf
 df=fmin
+df0=df
 
 #linewidth sweep parameters(currently not sweeping. Linewidth is set to
 #equal to lwmax
@@ -59,16 +60,15 @@ def run_job():
         a=y[0]
         b=y[1]
         omega=omega_0
-        derivs=[0.5*1j*np.sqrt(1+phigen(t,phase_arr))*omega*b,
-                0.5*1j*np.sqrt(1+phigen(t,phase_arr))*omega*a]
+        derivs=[0.5*1j*omega*np.exp(1j*phigen(t,phase_arr))*b,
+                0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr))*a]
         return derivs
 
-    #def jac(t,y):
-    #    a=y[0]
-    #    b=y[1]
-
-    #    return [[0,0.5*1j*np.sqrt(1+phigen(t,phase_arr))],
-    #            [0.5*1j*np.sqrt(1+phigen(t,phase_arr)),0]]
+    def jac(t,y):
+        a=y[0]
+        b=y[1]
+        return [[0,0.5*1j*omega*np.exp(1j*phigen(t,phase_arr))],
+                [0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr)),0]]
 
     #intitial condition
     y0=[1+0.0j,0+0.0j]
@@ -98,23 +98,21 @@ def swp_lw(lw):
     elif(tpnum%2==0):
         r0=totresult[:,1]
     meanr0=np.mean(r0)
-    print(meanr0)
+    #print(meanr0)
     sump=0.0
     npo=0.0
     sumn=0.0
     nn=0.0
-    stdp=0
-    stdn=0
-##    for k in range(nrun):
-##        if (r0[k]>meanr0):
-##
-##            npo=npo+1
-##            sump=sump+(r0[k]-meanr0)**2
-##        else:
-##            nn=nn+1
-##            sumn=sumn+(r0[k]-meanr0)**2
-##    stdp=np.sqrt(sump/float(npo))
-##    stdn=np.sqrt(sumn/float(nn))
+    for k in range(nrun):
+        if (r0[k]>meanr0):
+
+            npo=npo+1
+            sump=sump+(r0[k]-meanr0)**2
+        else:
+            nn=nn+1
+            sumn=sumn+(r0[k]-meanr0)**2
+    stdp=np.sqrt(sump/float(npo))
+    stdn=np.sqrt(sumn/float(nn))
     return [meanr0,stdp,stdn]
 
 timet=time.time()
@@ -131,23 +129,27 @@ quasarr=[]
 for i in range(nl):
     print(i)
     tpi=tpnum*tpi0
-    lwset=10000*(i+1)
+    lwset=10000*(50)
     lwfactor=1
+    df=df0*(i+1)
+    fmax_tmp=df*nf
+    for k in range(nf):
+        pikdf_arr[k] = 2*np.pi*(k+1)*df
     res=swp_lw(lwset)
     print(res[0])
     y1.append(res[0])
     sp.append(res[1])
     sn.append(res[2])
-    sig=np.sqrt((1/np.pi)*lwset*nf*df)/(omega_0/(2*np.pi))
+    sig=np.sqrt((1/np.pi)*2*lwset*nf*df)/(omega_0/(2*np.pi))
     quas=0
     if (tpnum%2==1):
-        quas=0.25*(tpnum*np.pi/2)**2*sig**2
+        quas=sig**2
     elif(tpnum%2==0):
-        quas=0.25*(tpnum*np.pi/2)**2*sig**2
+        quas=0.75*(tpnum*np.pi/2)**2*sig**4
     print(quas)
     quasarr.append(quas)
     sigarr.append(sig)
-    x1.append(lwset)
+    x1.append(fmax_tmp)
 
 
 for i in range(nl):

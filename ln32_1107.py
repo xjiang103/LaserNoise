@@ -17,11 +17,11 @@ args = vars(parser.parse_args())
 tpi_num = args["tpi_number"]
 
 
-num_cores=64
-nrun=128
+num_cores=8
+nrun=1
 units=1e6
 filestr="f3swp"+str(tpi_num)+"_1107.txt"
-f=open("filestr","w")
+f=open(filestr,"w")
 print(filestr)
 avenum=1
 
