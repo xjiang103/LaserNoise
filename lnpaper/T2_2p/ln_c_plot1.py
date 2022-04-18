@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 from scipy.optimize import curve_fit
-matplotlib.rcParams.update({'font.size': 16})
+matplotlib.rcParams.update({'font.size': 12})
+fig = plt.figure()
+fig.set_size_inches(3.375,3.375*1)
+
 data = np.loadtxt("ln_c_32.txt")
 lw_arr=data[:,0]*1000
 print(lw_arr)
@@ -29,8 +32,8 @@ plt.plot(lwfit_arr,t2theo_arr,label="Theory")
 plt.xlabel("Linewidth/kHz")
 plt.ylabel("T2/μs")
 plt.title("T2-Linewidth")
-plt.legend(loc="upper right")
+plt.legend(loc="upper right",prop={'size': 10})
 plt.xlim([0,110])
 plt.ylim([0,4])
 plt.show()
-plt.savefig("pops1.png",dpi=300)
+plt.savefig("T2_2p.pdf",dpi=300)

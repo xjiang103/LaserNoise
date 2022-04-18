@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 print(3/5)
-tpi=1
+tpi=2
 matplotlib.rcParams.update({'font.size': 24})
 filestr="f3swp1_1113.txt"
 f=open(filestr,"r")
@@ -21,10 +21,7 @@ for i in range(80):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
-    xa.append(float(x))
-    ya.append(float(y))
-    spa.append(float(y)+float(sp))
-    sna.append(float(y)*0.5)
+
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -39,8 +36,13 @@ for i in range(80):
     print(sg)
     ta.append(2*et)
 
+    xa.append(float(x))
+    ya.append(float(2*et*(1+0.25*(0.5*y/et)))
+    spa.append(float(y)+float(sp))
+    sna.append(float(y)*0.5)
 
-plt.plot(xa,ya,'o-',label="numerics")
+
+plt.plot(xa,ya,'o',label="numerics")
 plt.plot(xa,ta,label="theory")
 plt.plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
 plt.plot(xa,sna,'r',alpha=0.2)

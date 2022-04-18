@@ -29,6 +29,7 @@ print("Ωprime="+str(omegaprime/(2*np.pi*units)))
 print(delta)
 print(omega1)
 print(omega2)
+print("delta/omega1"+str(delta/omega1))
 
 tpi0=np.pi/omegar
 tpi=tpi0

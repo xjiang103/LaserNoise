@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 print(3/5)
-tpi=1
+tpi=2
 matplotlib.rcParams.update({'font.size': 24})
 filestr="fswp_1103_"+str(tpi)+".txt"
 f=open(filestr,"r")
@@ -31,7 +31,7 @@ for i in range(17):
     omegag=2*np.pi*fg
     sg=np.sqrt(8*np.pi)*sigma_g*h_g/(f_g0**2)
     #print(2*omegag**2*sg/(omegar**2))
-    N=1/2
+    N=1/2*2
     print(omegag/omegar)
     et=2*omegag**2*sg*(1/omegar**2)*((np.cos(0.5*np.pi*omegag/omegar))**2*\
         (1-(-1)**(2*N)*np.cos(2*np.pi*N*omegag/omegar))/(4*(omegar**2-omegag**2)**2/omegar**4)+\
@@ -40,8 +40,8 @@ for i in range(17):
     ta.append(et)
 
 
-plt.plot(xa,ya,'o',label="numerics")
-plt.plot(xa,ta,label="theory")
+plt.plot(xa,ya,'o',color='red',label="numerics")
+plt.plot(xa,ta,color='blue',label="theory")
 plt.plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
 plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
