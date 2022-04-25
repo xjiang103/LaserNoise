@@ -11,14 +11,14 @@ from scipy.optimize import curve_fit
 from scipy.special import erf
 
 import argparse
-parser = argparse.ArgumentParser(description='Laser Noise')
-parser.add_argument('-nrun','--n_run_times', help='Number of Averages', required=True, type=int)
+parser = argparse.ArgumentParser(description='Length of pulse/(π/Ω)')
+parser.add_argument('-tpi','--tpi_number', help='Tpi_number', required=True, type=int)
 args = vars(parser.parse_args())
-b = args["n_run_times"]
+tpi_num = args["tpi_number"]
 
 
 num_cores=64
-nrun=b
+nrun=200
 units=1e6
 f=open("f3swp2_0723.txt","w")
 avenum=1
@@ -45,7 +45,7 @@ print(omega2)
 
 tpi0=np.pi/omegar
 tpi=tpi0
-tpinum=2
+tpinum=tpi_num
 print(tpi)
 
 #frequency domain sample parameters
@@ -150,22 +150,20 @@ def swp_lw(lw1,lw2):
     totresult=np.array(res)
     r0=totresult[:,2]
     meanr0=np.mean(r0)
-
     sump=0.0
     npo=0.0
     sumn=0.0
     nn=0.0
     for k in range(nrun):
         if (r0[k]>meanr0):
+
             npo=npo+1
             sump=sump+(r0[k]-meanr0)**2
         else:
             nn=nn+1
             sumn=sumn+(r0[k]-meanr0)**2
-
-    stdp=0
-    stdn=0
-    
+    stdp=np.sqrt(sump/float(npo))
+    stdn=np.sqrt(sumn/float(nn))
     return [meanr0,(np.std(totresult,axis=0))[2],stdp,stdn]
 
 timet=time.time()
@@ -189,35 +187,23 @@ stdnacc=0
 fg_start=234*(1e3)
 nl=80
 for i in range(nl):
-#    tpi=tpi0*swparr[i][1]
-#    lwset=swparr[i][0]
     print(i)
-    
-    tpi=tpinum*tpi0
-    lwset=(i+1)*fg_start*0.125
-    print(lwset/(omega_0/(2*np.pi)))
-    
-    res=swp_lw(lwset,lwset)
-    print(res[0])
-#    print(res[1])
-    y1_fmax.append(res[0])
-    sp_fmax.append(res[1])
-    sn_fmax.append(res[2])
-    x_fmax.append(lwset/(omega_0/(2*math.pi)))
-
-
-    hg0=1100
-    fg0=234*(1e3)
-    sigmag=1.4*(1e3)
-
-    scale_fac=lwset/fg0
-
+    tpi=tpi0*tpinum
+    #
+    #scale_fac=scale_fac_list[i]
+    scale_fac=0.125*(i+1)
     hg=hg0*(scale_fac**2)
-    fg=lwset
+    res=swp_lw(scale_fac*fg,scale_fac*fg)
+    print(frac_power(hg,sigmag,scale_fac*fg))
+    print(1-res[0])
     
-    print(frac_power(hg,sigmag,fg))
-for i in range(nl):
-    f.write(str(x_fmax[i])+' '+str(y1_fmax[i])+'\n')
+    y_f.append(res[0])
+    x_f.append(scale_fac*fg/(omega_0/(2*np.pi)))
+    sp.append(res[1])
+    sn.append(res[2])
+    print("-------")
+for i in range(int(nl)):
+    f.write(str(x_f[i])+" "+str(y_f[i])+" "+str(sp[i])+" "+str(sn[i])+"\n")
 f.close()
 #plt.plot(x_fmax,y1_fmax,lw=2,label=r"simulation")
 #plt.plot(x_fmax,y2_fmax,lw=2,label=r"quasi-static")

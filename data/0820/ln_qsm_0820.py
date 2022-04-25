@@ -9,10 +9,10 @@ from scipy.integrate import solve_ivp,quad
 from scipy import stats
 from scipy.optimize import curve_fit
 
-nrun=100
-num_cores=64
+nrun=30
+num_cores=8
 
-tpnum=6
+tpnum=2
 filestr="fmaxswp_0820_"+str(tpnum)+".txt"
 f=open(filestr,"w")
 
@@ -73,7 +73,7 @@ def run_job():
     y0=[1+0.0j,0+0.0j]
     t0=[0,tpi]
 
-    sol = solve_ivp(feq,t0,y0,rtol=1e-14,atol=3e-14)
+    sol = solve_ivp(feq,t0,y0,rtol=1e-7,atol=3e-7)
     yf=(sol.y[0][-1],sol.y[1][-1])
     #print(yf)
     return [(abs(yf[0]))**2,(abs(yf[1]))**2]
@@ -97,9 +97,21 @@ def swp_lw(lw):
     elif(tpnum%2==0):
         r0=totresult[:,1]
     meanr0=np.mean(r0)
+    print(meanr0)
+    sump=0.0
+    npo=0.0
+    sumn=0.0
+    nn=0.0
+    for k in range(nrun):
+        if (r0[k]>meanr0):
 
-    stdp=0
-    stdn=0
+            npo=npo+1
+            sump=sump+(r0[k]-meanr0)**2
+        else:
+            nn=nn+1
+            sumn=sumn+(r0[k]-meanr0)**2
+    stdp=np.sqrt(sump/float(npo))
+    stdn=np.sqrt(sumn/float(nn))
     return [meanr0,stdp,stdn]
 
 timet=time.time()

@@ -29,6 +29,7 @@ print("Ωprime="+str(omegaprime/(2*np.pi*units)))
 print(delta)
 print(omega1)
 print(omega2)
+print("delta/omega1"+str(delta/omega1))
 
 tpi0=np.pi/omegar
 tpi=tpi0
@@ -105,7 +106,8 @@ def swp_lw(lw1,lw2):
     totresult=np.array(res)
     r0=totresult[:,0]
     meanr0=np.mean(r0)
-
+    meanr1=np.mean(totresult[:,1])
+    meanr2=np.mean(totresult[:,2])
     sump=0.0
     npo=0.0
     sumn=0.0
@@ -118,22 +120,24 @@ def swp_lw(lw1,lw2):
             nn=nn+1
             sumn=sumn+(r0[k]-meanr0)**2
 
-    stdp=np.sqrt(sump/float(npo))
-    stdn=np.sqrt(sumn/float(nn))
+    stdp=0
+    stdn=0
     
-    return [meanr0,(np.std(totresult,axis=0))[2],stdp,stdn]
+    return [meanr0,(np.std(totresult,axis=0))[2],stdp,stdn,meanr1,meanr2]
 
 timet=time.time()
 swparr=[[0.01,1],[0.001,1],[0.0001,1],[0.01,2],[0.001,2],[0.0001,2]]
 for i in range(6):
     print(i)
     tpi=tpi0*swparr[i][1]
-    lwset=swparr[i][0]
+    lwset=0
     results = swp_lw(lwset,lwset)
     mean_arr=results[0]
     std_arr=results[1]
     std_arrp=results[2]
     std_arrn=results[3]
+    m1=results[4]
+    m2=results[5]
     print("------")
     if(swparr[i][1]==1):
         print("pi pulse")
@@ -141,7 +145,8 @@ for i in range(6):
         print("2pi pulse")
     print("FWHM=",lwset*1000,"kHz")
     print("P[0]:",mean_arr)
-    print("P[r]:",1-mean_arr)
+    print("P[r]:",m2)
+    print("P[int]:",m1)
     print("Standard Deviation:",std_arr)
     if(swparr[i][1]==1):
         print("Standard Deviation P:",std_arrp)
