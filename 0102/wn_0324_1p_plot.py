@@ -14,7 +14,7 @@ h0=200
 print(3/5)
 tpi=1
 
-filestr="h0swp_0224_1.txt"
+filestr="f3swp1_0407.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -43,7 +43,7 @@ for i in range(18):
     N=1/2
     et=h0*(i+1)*(np.pi**3+np.pi**2*N+2*np.pi**3*N**2)/omegar
     et=(1)*h0*(i+1)*N*np.pi**3/omegar
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 axs[0].plot(xa,ya,'o-',label="Numerics",color='red')
@@ -58,7 +58,7 @@ axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
 f.close()
 
 tpi=2
-filestr="h0swp_0224_2.txt"
+filestr="f3swp2_0407.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -87,7 +87,7 @@ for i in range(18):
     N=1/1
     et=h0*(i+1)*(np.pi**3+np.pi**2*N+2*np.pi**3*N**2)/omegar
     et=(1)*h0*(i+1)*N*np.pi**3/omegar
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 axs[1].plot(xa,ya,'o-',label="Numerics",color='red')
@@ -105,5 +105,5 @@ plt.xlabel("$h_0$")
 plt.ylabel('Error')
 fig.show()
 
-plt.savefig('wn_1p_0321.pdf', bbox_inches='tight')
+plt.savefig('wn_2p_0419.pdf', bbox_inches='tight')
 

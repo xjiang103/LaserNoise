@@ -9,10 +9,12 @@ fig.set_size_inches(3.375,3.375*2)
 gs = fig.add_gridspec(2, hspace=0)
 axs = gs.subplots(sharex=True, sharey=False)
 
+h0=200
+
 print(3/5)
 tpi=1
 
-filestr="f3swp1_0102.txt"
+filestr="f3swp1_0407.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -24,14 +26,14 @@ h_g=1100
 f_g0=234*(1e3)
 sigma_g=1.4*(1e3)
 
-for i in range(78):
+for i in range(18):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
-    xa.append(float(x))
+    xa.append(200*(i+1))
     ya.append(float(y))
     spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
+    sna.append(float(y)*0.5)
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -39,14 +41,8 @@ for i in range(78):
     sg=np.sqrt(8*np.pi)*sigma_g*h_g/(f_g0**2)
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
-    print(omegag/omegar)
-    et=2*omegag**2*sg*(1/omegar**2)*((np.cos(0.5*np.pi*omegag/omegar))**2*\
-        (1-(-1)**(2*N)*np.cos(2*np.pi*N*omegag/omegar))/(4*(omegar**2-omegag**2)**2/omegar**4)+\
-        (np.sin(0.5*np.pi*omegag/omegar))**2*2*np.pi*N*(1+2*np.pi*N)/32)
-    et=2*sg*(np.pi*fg*omegar)**2*(1)*\
-        (1-(-1)**(2*N)*np.cos(4*np.pi**2*N*fg/omegar))/(omegar**2-omegag**2)**2
-    
-    print(sg)
+    et=h0*(i+1)*(np.pi**3+np.pi**2*N+2*np.pi**3*N**2)/omegar
+    et=(1)*h0*(i+1)*N*np.pi**3/omegar
     ta.append(2*et)
 
 
@@ -62,7 +58,7 @@ axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
 f.close()
 
 tpi=2
-filestr="f3swp2_0102.txt"
+filestr="f3swp2_0407.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -73,16 +69,15 @@ omegar=2*np.pi*(1e6)
 h_g=1100
 f_g0=234*(1e3)
 sigma_g=1.4*(1e3)
-r=f.readline()
-r=f.readline()
-for i in range(76):
+
+for i in range(18):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
-    xa.append(float(x))
+    xa.append(200*(i+1))
     ya.append(float(y))
     spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
+    sna.append(float(y)*0.5)
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -90,14 +85,8 @@ for i in range(76):
     sg=np.sqrt(8*np.pi)*sigma_g*h_g/(f_g0**2)
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
-    print(omegag/omegar)
-    et=2*omegag**2*sg*(1/omegar**2)*((np.cos(0.5*np.pi*omegag/omegar))**2*\
-        (1-(-1)**(2*N)*np.cos(2*np.pi*N*omegag/omegar))/(4*(omegar**2-omegag**2)**2/omegar**4)+\
-        (np.sin(0.5*np.pi*omegag/omegar))**2*2*np.pi*N*(1+2*np.pi*N)/32)
-    et=2*sg*(np.pi*fg*omegar)**2*(1)*\
-        (1-(-1)**(2*N)*np.cos(4*np.pi**2*N*fg/omegar))/(omegar**2-omegag**2)**2
-    
-    print(sg)
+    et=h0*(i+1)*(np.pi**3+np.pi**2*N+2*np.pi**3*N**2)/omegar
+    et=(1)*h0*(i+1)*N*np.pi**3/omegar
     ta.append(2*et)
 
 
@@ -112,9 +101,9 @@ axs[1].text(0.1, 0.9, 'b', horizontalalignment='center',
      verticalalignment='center', transform=axs[1].transAxes)
 f.close()
 
-plt.xlabel("$f_g$/($Ω_0$/2π))")
+plt.xlabel("$h_0$")
 plt.ylabel('Error')
 fig.show()
 
-plt.savefig('fg_2p_0331.png', bbox_inches='tight')
+plt.savefig('wn_2p_0419.pdf', bbox_inches='tight')
 

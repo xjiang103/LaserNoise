@@ -31,7 +31,7 @@ for i in range(18):
     xa.append(float(x))
     ya.append(float(y))
     spa.append(float(y)+float(sp))
-    sna.append(float(y)*0.5)
+    sna.append(float(y)-float(sn))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -80,7 +80,7 @@ for i in range(18):
     xa.append(float(x))
     ya.append(float(y))
     spa.append(float(y)+float(sp))
-    sna.append(float(y)*0.5)
+    sna.append(float(y)-float(sn))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
