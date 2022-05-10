@@ -12,7 +12,7 @@ h0=200
 print(3/5)
 tpi=1
 
-filestr="intswp1_1.txt"
+filestr="intswp2_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -43,9 +43,9 @@ for i in range(10):
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
 plt.plot(xa,ta,label="Theory",color='blue')
-plt.plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
-plt.plot(xa,sna,'r',alpha=0.2)
-plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
+#plt.plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
+#plt.plot(xa,sna,'r',alpha=0.2)
+#plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
 plt.text(0.01, 0.02, 'a', horizontalalignment='center',
@@ -58,7 +58,7 @@ f.close()
 
 plt.subplot(2,2,2)
 tpi=1
-filestr="intswp1w_1.txt"
+filestr="intswp2_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -84,7 +84,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -107,7 +107,7 @@ h0=200
 print(3/5)
 tpi=2
 
-filestr="intswp1_2.txt"
+filestr="intswp2_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -133,7 +133,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -153,7 +153,7 @@ f.close()
 
 plt.subplot(2,2,4)
 tpi=2
-filestr="intswp1w_2.txt"
+filestr="intswp2_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -179,7 +179,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -196,7 +196,7 @@ f.close()
 plt.xlabel("RIN")
 
 
-plt.savefig('int_1p_0414.png')
+plt.savefig('int_2p_0508.png')
 
 
 plt.show()

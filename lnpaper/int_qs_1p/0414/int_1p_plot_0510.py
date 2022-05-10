@@ -37,7 +37,7 @@ for i in range(10):
 
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
-    et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
+    et=(0.02*(i+1))
     ta.append(1*et)
 
 
@@ -83,7 +83,7 @@ for i in range(10):
 
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
-    et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
+    et=(0.02*(i+1))
     ta.append(1*et)
 
 
@@ -132,7 +132,7 @@ for i in range(10):
 
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
-    et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
+    et=(0.02*(i+1))**2
     ta.append(1*et)
 
 
@@ -196,7 +196,7 @@ f.close()
 plt.xlabel("RIN")
 
 
-plt.savefig('int_1p_0414.png')
+plt.savefig('int_1p_0510.png')
 
 
 plt.show()
