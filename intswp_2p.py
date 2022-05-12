@@ -19,8 +19,8 @@ tpi_num = args["tpi_number"]
 units=1e6
 avenum=1
 #number of runs for averaging
-nrun=20
-num_cores=36
+nrun=1
+num_cores=1
 tpnum=tpi_num
 filestr="intswp2_"+str(tpnum)+".txt"
 f=open(filestr,"w")

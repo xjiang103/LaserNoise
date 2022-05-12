@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.rcParams.update({'font.size': 12})
 fig = plt.figure()
-fig.set_size_inches(3.375,3.375*2)
+fig.set_size_inches(3.375*2,3.375*1)
 
-gs = fig.add_gridspec(2, hspace=0)
-axs = gs.subplots(sharex=True, sharey=False)
+gs = fig.add_gridspec(1,2, hspace=0)
+axs = gs.subplots(sharex=False, sharey=False)
 
 tpnum=1
 filestr="fmaxswp_1103_"+str(tpnum)+".txt"
@@ -37,6 +37,8 @@ if (tpnum%2==0):
     plt.ylim(10**(-8),10**(-3))
 axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
      verticalalignment='center', transform=axs[0].transAxes)
+axs[0].set_ylabel('Error')
+axs[0].set_xlabel("Bandwidth (kHz)")
 
 tpnum=2
 filestr="fmaxswp_1103_"+str(tpnum)+".txt"
@@ -70,11 +72,11 @@ if (tpnum%2==0):
     plt.ylim(10**(-8),10**(-3))
 
     
-plt.ylabel('Error')
-plt.xlabel("Linewidth (kHz)")
+#axs[1].set_ylabel('Error')
+axs[1].set_xlabel("Bandwidth (kHz)")
 #plt.title("T="+str(tpnum)+"π/Ω")
 
 fig.show()
-filestr='quasi_1p.pdf'
+filestr='quasi_1p_thesis.pdf'
 plt.savefig(filestr, bbox_inches='tight')
 

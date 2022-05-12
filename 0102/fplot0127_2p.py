@@ -67,7 +67,7 @@ if (tpnum%2==0):
 
     
 plt.ylabel('Error')
-plt.xlabel("Bandwidth (kHz)")
+plt.xlabel("Linewidth (kHz)")
 #plt.title("T="+str(tpnum)+"π/Ω")
 
 fig.show()
