@@ -4,9 +4,9 @@ import matplotlib
 from scipy.optimize import curve_fit
 matplotlib.rcParams.update({'font.size': 12})
 fig = plt.figure()
-fig.set_size_inches(3.375,3.375*1)
+fig.set_size_inches(3.5,3.375*1)
 
-data = np.loadtxt("ln_c_32_0426.txt")
+data = np.loadtxt("ln_c_32_0517.txt")
 print(data)
 lw_arr=data[:,0]*1000
 print(lw_arr)
@@ -21,7 +21,7 @@ aaa=popt[0]
 t2fit_arr=func(lwfit_arr,aaa)
 print(aaa)
 print(1000/(2*np.pi))
-theoconst=1000/(8*np.pi)
+theoconst=1000/(4*np.pi)
 t2theo_arr=func(lwfit_arr,theoconst)
 
 
@@ -36,6 +36,5 @@ plt.title("T2-Linewidth")
 plt.legend(loc="upper right",prop={'size': 10})
 plt.xlim([0,110])
 plt.ylim([0,4])
-plt.savefig("T2_2p_0517.pdf",dpi=300)
 plt.show()
-
+plt.savefig("T2_2p_tmp.pdf",dpi=300)

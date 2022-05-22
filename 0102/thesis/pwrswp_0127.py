@@ -4,9 +4,9 @@ import matplotlib
 
 matplotlib.rcParams.update({'font.size': 12})
 fig = plt.figure()
-fig.set_size_inches(3.375,3.375*2)
+fig.set_size_inches(3.375*2,3.375)
 
-gs = fig.add_gridspec(2, hspace=0)
+gs = fig.add_gridspec(1,2, hspace=0)
 axs = gs.subplots(sharex=True, sharey=False)
 
 print(3/5)
@@ -40,6 +40,10 @@ axs[0].set_xscale('log')
 axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
      verticalalignment='center', transform=axs[0].transAxes)
 axs[0].legend(loc="lower right", prop={'size': 12})
+axs[0].set_xlabel("Fractional Power")
+axs[0].set_ylabel('Error')
+
+
 
 tpi=2
 filestr="hgswp_1031_"+str(tpi)+".txt"
@@ -72,11 +76,11 @@ axs[1].text(0.1, 0.9, 'b', horizontalalignment='center',
      verticalalignment='center', transform=axs[1].transAxes)
 axs[1].legend(loc="lower right", prop={'size': 10})
 
-plt.xlabel("Fractional Power")
-plt.ylabel('Error')
+axs[1].set_xlabel("Fractional Power")
 
 #plt.title("Error at time "+str(tpi)+"π/Ω")
 
 
-filestr='pwrswp.pdf'
+filestr='pwrswp_thesis.pdf'
 plt.savefig(filestr, bbox_inches='tight',dpi=100)
+

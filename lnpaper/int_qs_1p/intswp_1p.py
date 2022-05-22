@@ -71,17 +71,18 @@ def run_job():
     def feq(t,y):
         a=y[0]
         b=y[1]
-        omega=omega_0*np.sqrt(1+alpha)
-        derivs=[0.5*1j*omega*np.exp(1j*phigen(t,phase_arr))*b,
-                0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr))*a]
+        phi=phigen(t,phase_arr)
+        
+        derivs=[0.5*1j*omega*np.sqrt(1+phi)*np.exp(1j*1)*b,
+                0.5*1j*omega*np.sqrt(1+phi)*np.exp(-1j*1)*a]
         return derivs
 
     def jac(t,y):
         a=y[0]
         b=y[1]
-        omega=omega_0*np.sqrt(1+alpha)
-        return [[0,0.5*1j*omega*np.exp(1j*phigen(t,phase_arr))],
-                [0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr)),0]]
+        phi=phigen(t,phase_arr)
+        return [[0,0.5*1j*omega*np.sqrt(1+phi)*np.exp(1j*1)],
+                [0.5*1j*omega*np.sqrt(1+phi)*np.exp(-1j*1),0]]
 
     #intitial condition
     y0=[1+0.0j,0+0.0j]

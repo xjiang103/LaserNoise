@@ -58,7 +58,7 @@ f.close()
 
 plt.subplot(2,2,2)
 tpi=1
-filestr="0422_2p_1w.txt"
+filestr="0508_2p_1w.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -109,7 +109,7 @@ h0=200
 print(3/5)
 tpi=2
 
-filestr="0422_2p_2.txt"
+filestr="0508_2p_2.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -157,7 +157,7 @@ f.close()
 
 plt.subplot(2,2,4)
 tpi=2
-filestr="0422_2p_2w.txt"
+filestr="0508_2p_2w.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
