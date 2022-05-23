@@ -25,7 +25,7 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(20):
+for i in range(12):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
@@ -66,7 +66,7 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(20):
+for i in range(12):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
