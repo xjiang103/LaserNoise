@@ -121,8 +121,8 @@ def swp_lw(lw):
         else:
             nn=nn+1
             sumn=sumn+(r0[k]-meanr0)**2
-    stdp=np.sqrt(sump/float(npo))
-    stdn=np.sqrt(sumn/float(nn))
+    stdp=1
+    stdn=1
     return [meanr0,stdp,stdn]
 
 timet=time.time()
