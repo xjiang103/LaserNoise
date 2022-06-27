@@ -3,7 +3,7 @@ import matplotlib
 import numpy as np
 
 matplotlib.rcParams.update({'font.size': 12})
-nnn=0.002
+nnn=0.2
 fig = plt.figure()
 fig.set_size_inches(3.375,3.375*2)
 
@@ -12,7 +12,7 @@ axs = gs.subplots(sharex=True, sharey=True)
 
 tpi=2
 omega0=2*np.pi*1000000
-f=open("fmaxswp_0619_500_"+str(nnn)+".txt","r")
+f=open("fmaxswp_0619_"+str(nnn)+".txt","r")
 xa=[]
 y1a=[]
 y2a=[]
@@ -38,10 +38,11 @@ axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
      verticalalignment='center', transform=axs[0].transAxes)
 
 tpi=2
-f=open("fmaxswp_0619_500_"+str(nnn)+".txt","r")
+f=open("fmaxswp_0619_"+str(nnn)+".txt","r")
 xa=[]
 y1a=[]
 y2a=[]
+y3a=[]
 for i in range(25):
     N=1
     r=f.readline()
@@ -50,12 +51,14 @@ for i in range(25):
     xa.append(float(x)/1000000)
     y1a.append(float(y1))
     xnum=float(x)
-    ff1=32*np.pi**6*xnum*(nnn*omega0/(2*np.pi))**3*1/(3*omega0**4)
-    ff2=10000*N*np.pi**3/omega0
+    ff1=32*np.pi**6*xnum*(nnn*omega0/(2*np.pi))**3*1/(3*omega0**4)-128*xnum*(nnn*omega0/(2*np.pi))**5*(np.pi**10*N**4/(6*np.pi**2*N*N))/(15*omega0**6)
+    ff2=32*np.pi**6*xnum*(nnn*omega0/(2*np.pi))**3*1/(3*omega0**4)
     y2a.append(ff1)
+    y3a.append(ff2)
 
 axs[1].plot(xa,y1a,'o-',label="Numerics",color='red')
-axs[1].plot(xa,y2a,'-',label="Theory",color='blue')
+axs[1].plot(xa,y2a,'-',label="2-term Theory",color='blue')
+axs[1].plot(xa,y3a,'-',label="1-term Theory",color='green')
 axs[1].set_yscale('log')
 axs[0].set_xscale('log')
 axs[1].legend(loc="lower right", prop={'size': 10})
@@ -68,5 +71,5 @@ plt.xlabel("Bandwidth/($Ω_0$/2π))")
 fig.show()
 
 
-filestr="fmaxswp_0620_500_"+str(nnn)+".png"
+filestr="fmaxswp_0624_"+str(nnn)+".png"
 plt.savefig(filestr, bbox_inches='tight',dpi=100)
