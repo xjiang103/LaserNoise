@@ -30,7 +30,7 @@ for k in range(1):
     y3a=[]
 
     yquasi=[]
-    for i in range(33):
+    for i in range(29):
         N=1
         r=f.readline()
         x,y1,bw=r.split()
@@ -62,10 +62,11 @@ for k in range(1):
         
         yquasi.append(quas)
 
-    plt.plot(bwa,y1a,'o-',label=r"h=10 kHz$^2/$kHz",color='red')
+    plt.plot(bwa,y1a,'o-',label=r"h=3.18 kHz$^2/$kHz",color='red')
     #plt.plot(xa,y2a,'-',label="Mark_static, bw="+str(nnn)+"Ω",color='blue')
     plt.plot(bwa,y3a,'-',label="Master Equation",color='blue')
     plt.plot(bwa,yquasi,'-',label="Static Gaussian",color='green')
+    plt.axvline(x = 0.014276, color = 'orange',linestyle='dashed', label = r'$f_c=1.43h$')
 #plt.plot(xa,y2a,'-',label="Mark 2-term Theory",color='purple')
 #plt.plot(xa,y3a,'-',label="Mark 1-term Theory",color='blue')
 
@@ -76,7 +77,7 @@ plt.xscale('log')
 plt.legend(loc="lower right", prop={'size': 10})
 plt.ylabel('Error')
 plt.xlabel(r"$2\pi f_c/\Omega_0$")
-filestr="fixh_bswp.pdf"
+filestr="fixh_bswp_10k.pdf"
 plt.savefig(filestr, bbox_inches='tight',dpi=100)
 plt.show()
 
