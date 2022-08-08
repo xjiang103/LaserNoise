@@ -66,7 +66,8 @@ for k in range(1):
     #plt.plot(xa,y2a,'-',label="Mark_static, bw="+str(nnn)+"Ω",color='blue')
     plt.plot(bwa,y3a,'-',label="Master Equation",color='blue')
     plt.plot(bwa,yquasi,'-',label="Static Gaussian",color='green')
-    plt.axvline(x = 0.014276, color = 'orange',linestyle='dashed', label = r'$f_c=1.43h$')
+    plt.axvline(x = 0.014276, color = 'orange',linestyle='dashed')
+    plt.text(0.0032,0.001, r'$f_c=1.43h$')
 #plt.plot(xa,y2a,'-',label="Mark 2-term Theory",color='purple')
 #plt.plot(xa,y3a,'-',label="Mark 1-term Theory",color='blue')
 

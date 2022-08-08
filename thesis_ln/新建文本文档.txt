@@ -1,0 +1,285 @@
+\section{Quasi-Static Theory: An Approximate Model}
+For phase noise and intensity noise, we can try to use this quasi-static model to get an estimate of the population error.
+
+In this section we only focus on noise spectrum with constant amplitude $h$ and cut-off frequency $f_c$. The other quantities that are important here are the Rabi frequency $\Omega_0$, and the laser's full width at half maximum linewidth $l$ which are usually measured in self-heterodyne measurements in labs.
+
+The first assumption we make here came from the study on the laser noise spectrum by Domenico et al. in 2010\cite{di2010simple}, where it was showed that, for a noise spectrum with constant amplitude $h$ and cut-off frequency $f_c$, when condition $f_c > 1.78 h$ is satisfied, the corresponding lineshape of the laser $S_E(\nu)$ is approximately Lorentzian, which gives a simple relation between l and $h$:
+\begin{equation}
+     h=\frac{l}{\pi}
+\end{equation}
+
+The second assumption is that when the bandwith of the noise spectrum is much less than the Rabi frequency, we can consider the noise to be quasi-static. We can treat the noise as a simple random variable instead of a random process. 
+
+\subsection{Intensity Noise}
+
+Assume the output of a laser with intensity noise follows the following form:
+\begin{equation}
+    I=I_0(1+x)
+\end{equation}
+where $I_0$ is the unperturbed intensity, $x$ is the relative intensity noise. 
+
+Assume that $x$ follows normal distribution with zero mean and variance $\sigma$:
+\begin{equation}
+    f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{x^2}{2\sigma^2}} 
+\end{equation}
+Here $\sigma$ is the root-mean-square(RMS) intensity noise, which is the RIN level that we measure in labs.
+
+Under this situation, the Rabi frequency for a two level system is then:
+\begin{equation}
+    \Omega=\Omega_0\sqrt{1+x}
+\end{equation}
+where $\Omega_0$ is the Rabi frequency when the intensity noise does not exist. Here to make the expression valid we need $-1\leq x\leq1$, which means the intensity noise is not greater than the signal. 
+
+Under the setting that $-1\leq x\leq1$, we need to modify the distribution of x to be a truncated-Gaussian:
+\[
+    f(x)= 
+\begin{cases}
+    \frac{1}{\sqrt{2\pi}\sigma \textbf{Erf}(\frac{1}{\sqrt{2}\sigma})}e^{-\frac{x^2}{2\sigma^2}},& \text{if } -1\leq x\leq1\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+In resonant Rabi oscillation the population probability for the ground state $\ket{g}$ is:
+\begin{equation}
+    P_g=\cos^2({\frac{\Omega t}{2}})
+\end{equation}
+
+Suppose we are interested on the expectation value of $P_e$ after $N$ cycles driven by a laser with intensity noise, $t_N=N\frac{2\pi}{\Omega_0}$. Then the expected value of $P_e$ can be calculated by the following integral:
+\begin{align}
+    \E[P_g] & =\frac{1}{\sqrt{2 \pi}\sigma\textbf{Erf}(\frac{1}{\sqrt{2}\sigma})}\int_{-1}^{1}\cos^2(\frac{\Omega t_N}{2})e^{-\frac{x^2}{2\sigma^2}} dx\\
+        & =\frac{1}{\sqrt{2 \pi}\sigma\textbf{Erf}(\frac{1}{\sqrt{2}\sigma})}\int_{-1}^{1}\cos^2(N\pi\sqrt{1+x})e^{-\frac{x^2}{2\sigma^2}} dx
+\end{align}
+
+By assuming that x is very small, and doing Talor expansion on the cosine part of the integral, we get the following approximation to second order:
+\begin{equation}
+    \cos^2(N\pi\sqrt{1+x})\approx 1-\frac{N^2 \pi^2 x^2}{4}
+\end{equation}
+By plugging the approximation back and doing Gaussian integral on x between -1 and 1, we get:
+\begin{equation}
+    \E[P_g]=1-\frac{N^2 \pi^2 \sigma^2}{4}+\frac{N^2\pi^{\frac{3}{2}}}{2\sqrt{2}}\frac{\sigma e^{-\frac{1}{2\sigma^2}}}{\textbf{Erf}(\frac{1}{\sqrt{2}\sigma})}
+\end{equation}
+
+The last term, with a $e^{-\frac{1}{2\sigma^2}}$ term, is zero in many orders of expansion. A good approximation will then be:
+\begin{equation}\label{eq:intquasi1}
+    \E[P_g]=1-\frac{N^2 \pi^2 \sigma^2}{4}
+\end{equation}
+
+To conclude, we can write the error predicted by quasi-static model to be:
+\begin{equation}\label{eq:intquasi1_final}
+    \text{error}=\frac{N^2 \pi^2 \sigma^2}{4}
+\end{equation}
+
+For a certain RIN level $\sigma$, to make the oscillation amplitude decay by a factor of 1/e, we need the time $N_{1/e}$(in oscillation cycles) to be;
+\begin{equation}
+    N_{1/e}=\frac{1.59}{\pi \sigma}
+\end{equation}
+
+For two-photon Rabi oscillations ,When $\delta=\Delta_1-\Delta_2\gg\lvert\Omega_1\rvert\ , \lvert\Omega_2\rvert\ $, solving the Schrodinger equations gives the following approximate expression for the population on the Rydberg state $\ket{r}$, assuming initially $\lvert c_g(0) \rvert^2=1, \lvert c_e(0) \rvert^2=\lvert c_r(0) \rvert^2=0$:
+\begin{equation}\label{eq:qs1}
+    \lvert c_r(t) \rvert^2=\sin^2(\frac{\Omega_R t}{2})
+\end{equation}
+Here $\Omega_R=\Omega_1\Omega_2/\delta$. This expression is also only true when $ \Delta_{+}=\Delta_1+\Delta2+\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2\delta}=0$ is satisfied. This condition guarantees a full population transfer between the ground state $\ket{g}$ and the Rydberg state$\ket{r}$. 
+
+When $\Delta_{+}\neq0$, expression (\ref{eq:qs1}) becomes:
+\begin{equation}
+    \lvert c_r(t) \rvert^2=\frac{\Omega_R^2}{{\Omega^{'}}^2}\sin^2(\frac{\Omega^{'} t}{2})
+\end{equation}
+where ${\Omega^{'}}^2=\Omega_R^2+\lvert \Delta_{+} \rvert^2$.
+
+In our following discussions, we always assueme that our noiseless system has $\Delta_+=0$.
+
+If the two lasers driving the two-photon Rabi oscillations both have intensity noise:
+\begin{equation}
+\begin{split}
+    I_1(t)&=I_{1_0}+\delta I_1(t)=I_{1_0}(1+x_{1}(t))\\
+    I_2(t)&=I_{2_0}+\delta I_2(t)=I_{2_0}(1+x_{2}(t))
+\end{split}
+\end{equation}
+
+Assume that $x_1$ and $x_2$ both has normal distribution with 0 mean and variance $\sigma_1^2$ and $\sigma_2^2$:
+\begin{equation}
+    f(x_i)=\frac{1}{\sqrt{2\pi}\sigma_i}e^{\frac{x_i^2}{2\sigma_i^2}}
+\end{equation}
+where $i=1,2$. 
+
+Under this model, the modified Rabi rate $\Omega_i^{'}$ will be:
+\begin{equation}
+    \Omega_i^{'}=\Omega_i\sqrt{1+x_i}, i=1,2
+\end{equation}
+
+Set $t_N=N\frac{2\pi}{\Omega_R}$, then the expected value of Rydberg state population can be calculated with the following integral, under the condition that $\Delta_+=0$:
+\begin{equation}
+\begin{split}
+    \E[P_r] & =\frac{1}{2\pi\sigma_1\sigma2}\int_{-\infty}^{\infty}dx_1\\
+    & \int_{-\infty}^{\infty}\sin^2(N\pi\sqrt{(1+x_1)(1+x_2)})e^{\frac{x_1^2}{2\sigma_1^2}}e^{\frac{x_2^2}{2\sigma_2^2}}dx_2
+\end{split}
+\end{equation}
+
+Expanding the $\sin$ term in the integral to  second order and evaluating the integral gives
+%\begin{equation}
+%    \sin^2(N\pi\sqrt{(1+x_1)(1+x_2)})\approx\frac{N^2\pi^2 x_1^2}{4}+\frac{N^2\pi^2 x_2^2}{4}+\frac{N^2\pi^2 x_1 %x_2}{2}
+
+%\end{equation}
+% Putting this expansion back to the integral, we get
+an estimate for the expectation of the state occupanct occupancy, which is also the expected population error in Rabi oscillations
+\begin{equation}\label{eq:intquasi2}
+    \E[P_r]=\frac{N^2\pi^2 \sigma_1^2}{4}+\frac{N^2\pi^2 \sigma_2^2}{4}.
+\end{equation}
+
+\subsection{frequency noise}
+
+Now we assume the laser's frequency drift is also Gaussian distributed. The frequency noise is defined as:
+\begin{equation}
+    \Delta\nu=\nu-\nu_0
+\end{equation}
+where $\nu_0$ is the unperturbed optical frequency. 
+Define $x=2\pi\Delta\nu/\Omega$, where $\Omega$ is the Rabi frequency for the two level system. Then the Gaussian distribution of $x$ can be the following:
+\begin{equation}
+    f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{x^2}{2\sigma^2}}
+\end{equation}
+Here $\Delta\nu_{rms}=x\sigma$ is the RMS value for frequency deviation. 
+
+For a two-level system resonant with laser frequency $\nu_0$, the frequency noise will act as detunings. $\Delta=x \Omega$
+
+The population for the excited state $\ket{e}$ in Rabi oscillations is:
+\begin{equation}
+    P_e=\frac{\Omega^2}{\Omega^2+\Delta^2}\sin^2(\frac{\sqrt{\Omega^2+\Delta^2}t}{2})
+\end{equation}
+
+By plugging in $\Delta=x \Omega$ and $t=N\frac{2\pi}{\Omega}$ we get:
+\begin{equation}
+    P_e=\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x^2})
+\end{equation}
+
+The expected value of $P_e$ will be the average over the distribution of x:
+\begin{equation}
+    \E[P_e]=\frac{1}{\sqrt{2 \pi}\sigma}\int_{-\infty}^{\infty}\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x^2})e^{-\frac{x^2}{2\sigma^2}} dx
+\end{equation}
+
+Then we can get expected value of $P_g$ from the expression above: 
+\begin{equation}
+    \E[P_g]=\frac{1}{\sqrt{2 \pi}\sigma}\int_{-\infty}^{\infty}[1-\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x^2})]e^{-\frac{x^2}{2\sigma^2}} dx
+\end{equation}
+We are going to discuss two special cases of N, where N are integers and half integers. In those cases we can simplify the expression for $P_e$ and get an analytical expression for the error. 
+
+1. When N is integer, by doing Taylor expansion on the $\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x})$ term to the fourth order, we can get the following approximation:
+\begin{equation}
+    \frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x^2})\approx\frac{N^2\pi^2x^4}{4}
+\end{equation}
+The integral then becomes:
+\begin{equation}
+    \E[P_e]=\frac{3 N^2 \pi^2 \sigma^4}{4}
+\end{equation}
+
+2. When N is half-integer, by doing Taylor expansion on the $\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x})$ term to the second order, we can get the following:
+\begin{equation}
+    1-\frac{1}{1+x^2}\sin^2(N\pi\sqrt{1+x^2})\approx x^2
+\end{equation}
+
+The integral then becomes:
+
+\begin{equation}
+    \E[P_g]=\sigma^2
+\end{equation}
+
+As a summary, if we start the Rabi oscillation at $P_g=1$ when $t=0$, the we have the following expression for errors:
+
+$$
+\begin{cases}
+	\E[P_g]=\sigma^2, & \text{N=0.5, 1.5, 2.5, 3.5,...}\\
+    \E[P_e]=\frac{3 N^2 \pi^2 \sigma^4}{4}, & \text{N=1, 2, 3, 4,...}
+\end{cases}
+$$
+
+Where $N=\frac{\Omega t}{2\pi}$, $\sigma$ is defined as frequency deviation in terms of Rabi frequency $\sigma=2\pi\Delta\nu_{rms}/\Omega$
+
+In the case of band-limited white noise in the frequency noise spectrum, with bandwidth $f_{max}$ and amplitude $l/\pi$, where $l$ is the linewidth of the corresponding lineshape in carrier domain, we have:
+\begin{equation}
+    \sigma^2=\frac{l f_{max}}{\pi}
+\end{equation}
+
+Then combining it with the expression for Rabi errors, we have: 
+
+\begin{equation}\label{eq:quasi1}
+    \begin{cases}
+	    \E[P_g]=\frac{l f_{max}}{\pi}, & \text{N=0.5, 1.5, 2.5, 3.5,...}\\
+        \E[P_e]=\frac{3 N^2 \pi^2 l^2 f_{max}^2}{4}, & \text{N=1, 2, 3, 4,...}
+    \end{cases}
+\end{equation}
+
+
+For two photon Rabi oscillations, When there's frequency noise, then the term $\Delta_+$ becomes a random variable which could be nonzero, and we need to find out its distribution. Assume that the frequency drift of each laser can be written as $\xi_1$ and $\xi_2$, where $\xi_1=\Delta_1^{'}-\Delta_1$, and $\xi_2=\Delta_2^{'}-\Delta_2$.
+
+We can now set up a model where $\xi_i$ is measured by $\Omega_R$:
+\begin{equation}
+    \xi_i=x_i \Omega_R, i=1,2
+\end{equation}
+
+Then similarly, we can assume that $x_i$ has normal distribution with 0 mean and variance $\sigma_i^2$:
+\begin{equation}
+    f(x_i)=\frac{1}{\sqrt{2\pi}\sigma_i}e^{\frac{x_i^2}{2\sigma_i^2}}, i=1,2
+\end{equation}
+
+When the system doesn't have frequency noise, the term $\Delta_{+}$ can be written as:
+\begin{equation}
+    \Delta_{+}=\Delta_1+\Delta_2+\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)}
+\end{equation}
+
+Then with frequency noise, it becomes:
+
+\begin{equation}
+    \Delta_{+}^{'}=\Delta_1+\Delta_2+\Omega_R(x_1+x_2)+\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)+2\Omega_R(x_1-x_2)}
+\end{equation}
+
+Our purpose here is to study the distribution of the variable $x_+$, where it is defined as:
+\begin{equation}
+    x_+=\frac{\Delta_{+}^{'}- \Delta_{+}}{\Omega_R}
+\end{equation}
+Then we can use the results in our single photon quasi-staic frequency noise model, by replacing the term x in the single photon model by the term $x_+$. Here $x_+$ seems to represent the "equivalent" frequency drift for the two-photon system. 
+
+Combining the results, we get:
+\begin{equation}
+\begin{split}
+    x_+= & x_1+x_2+\frac{1}{\Omega_R}[\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)+2\Omega_R(x_1-x_2)}-\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)}]
+\end{split}
+\end{equation}
+
+The third term in the equation above has an general inverse-Gaussian distribution, which is also called Wald distribution, due to the $x_1-x_2$ term on the denominator. Which is complicated and needs to be studied later. 
+
+Nonetheless, we can make an assumption that $\xi_1$ and $\xi_2$ are both much less than $\delta$. Then equation above can be approximated to:
+\begin{equation}
+\begin{split}
+    3rd term & =\frac{1}{\Omega_R}[\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)+2\Omega_R(x_1-x_2)}-\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)}]\\
+    & =\frac{1}{\Omega_R}[\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)}(1-\frac{\Omega_R}{\delta}(x_1-x_2))-frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2(\Delta_1-\Delta_2)}]\\
+    & =\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2\delta^2}(x_1-x_2)
+\end{split}
+\end{equation}
+This gives:
+\begin{equation}
+\begin{split}
+    x_{+}&=x_1+x_2+\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2\delta^2}(x_1-x_2)\\
+    &=x_1+x_2+\alpha(x_1-x_2)
+\end{split}
+\end{equation}
+where $\alpha=\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2\delta^2}$.
+
+We already know that $x_1$ and $x_2$ satisfies normal distribution, then using the properties of normal distributions, we get that $x_+$ also has normal distribution with zero mean, and a variance of:
+\begin{equation}
+    \sigma_+^2=(1+\alpha)^2\sigma_1^2+(1-\alpha)^2\sigma_2^2
+\end{equation}
+
+Then we can transplant $x_+$ and $\sigma_+$ into the model that we developed for single photon. 
+\begin{equation}
+    \E[P]=\frac{1}{\sqrt{2 \pi}\sigma_+}\int_{-\infty}^{\infty}\frac{1}{1+x_+^2}\sin^2(N\pi\sqrt{1+x_+^2})e^{-\frac{x_+^2}{2\sigma_+^2}} dx
+\end{equation}
+
+By Taylor expanding  the $sin^2$ term, we can get an approximation for the integral
+%
+\begin{equation}\label{eq:quasi_2p}
+    \begin{cases}
+    	\E[P_g]=\sigma_+^2+\frac{3 N^2 \pi^2 \sigma_+^4}{4}, & \text{N=0.5, 1.5, 2.5, 3.5,...}\\
+        \E[P_e]=\frac{3 N^2 \pi^2 \sigma_+^4}{4}, & \text{N=1, 2, 3, 4,...}
+    \end{cases}
+\end{equation}
+%
+where $\sigma_+^2=(1+\alpha)^2\sigma_1^2+(1-\alpha)^2\sigma_2^2, \alpha$ is a constant, $\alpha=\frac{\lvert\Omega_1\rvert^2-\lvert\Omega_2\rvert^2}{2\delta^2}$.
+
