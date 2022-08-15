@@ -43,7 +43,7 @@ for i in range(18):
     et=2*omegag**2*sg*(1/omegar**2)*((np.cos(0.5*np.pi*omegag/omegar))**2*\
         (1-(-1)**(2*N)*np.cos(2*np.pi*N*omegag/omegar))/(4*(omegar**2-omegag**2)**2/omegar**4)+\
         (np.sin(0.5*np.pi*omegag/omegar))**2*2*np.pi*N*(1+2*np.pi*N)/32)
-    et=2*sg*(np.pi*fg*omegar)**2*(1+1/(2*np.pi*N))*\
+    et=2*sg*(np.pi*fg*omegar)**2*(1)*\
         (1-(-1)**(2*N)*np.cos(4*np.pi**2*N*fg/omegar))/(omegar**2-omegag**2)**2
     print(sg)
     ta.append(1*et)
@@ -54,7 +54,7 @@ axs[0].plot(xa,ta,label="Theory",color='blue')
 axs[0].plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
 axs[0].plot(xa,sna,'r',alpha=0.2)
 axs[0].fill_between(xa,spa,sna,color='crimson',alpha=0.1)
-axs[0].legend(loc="lower right", prop={'size': 10})
+axs[0].legend(loc="lower center", prop={'size': 10})
 axs[0].set_yscale('log')
 axs[0].text(0.1, 0.9, 'a', horizontalalignment='center',
      verticalalignment='center', transform=axs[0].transAxes)
@@ -92,7 +92,7 @@ for i in range(18):
     et=2*omegag**2*sg*(1/omegar**2)*((np.cos(0.5*np.pi*omegag/omegar))**2*\
         (1-(-1)**(2*N)*np.cos(2*np.pi*N*omegag/omegar))/(4*(omegar**2-omegag**2)**2/omegar**4)+\
         (np.sin(0.5*np.pi*omegag/omegar))**2*2*np.pi*N*(1+2*np.pi*N)/32)
-    et=2*sg*(np.pi*fg*omegar)**2*(1+1/(2*np.pi*N))*\
+    et=2*sg*(np.pi*fg*omegar)**2*(1)*\
         (1-(-1)**(2*N)*np.cos(4*np.pi**2*N*fg/omegar))/(omegar**2-omegag**2)**2
     print(sg)
     ta.append(1*et)
@@ -103,7 +103,7 @@ axs[1].plot(xa,ta,label="Theory",color='blue')
 axs[1].plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
 axs[1].plot(xa,sna,'r',alpha=0.2)
 axs[1].fill_between(xa,spa,sna,color='crimson',alpha=0.1)
-axs[1].legend(loc="lower right", prop={'size': 10})
+axs[1].legend(loc="lower center", prop={'size': 10})
 axs[1].set_yscale('log')
 axs[1].text(0.1, 0.9, 'b', horizontalalignment='center',
      verticalalignment='center', transform=axs[1].transAxes)
@@ -113,5 +113,5 @@ plt.xlabel("$f_g$/($Ω_0$/2π))")
 plt.ylabel('Error')
 fig.show()
 
-plt.savefig('fg_1p_0324_with1over2piN.png', bbox_inches='tight')
+plt.savefig('fg_1p_0324.pdf', bbox_inches='tight')
 

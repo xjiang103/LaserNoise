@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-matplotlib.rcParams.update({'font.size': 12})
+matplotlib.rcParams.update({'font.size': 10})
 
 
 plt.subplot(2,2,1)
@@ -48,10 +48,9 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.02, 'a', horizontalalignment='center',
+plt.text(0.01, 0.06, 'a', horizontalalignment='center',
      verticalalignment='center')
 
-plt.xlabel("RIN")
 plt.ylabel('Error')
 f.close()
 
@@ -94,11 +93,10 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.03, 'c', horizontalalignment='center',
+plt.text(0.01, 0.02, 'c', horizontalalignment='center',
      verticalalignment='center')
 f.close()
 
-plt.xlabel("RIN")
 #---------------------------------------------------------------------
 plt.subplot(2,2,3)
 
@@ -143,10 +141,11 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.09, 'b', horizontalalignment='center',
+plt.text(0.01, 0.2, 'b', horizontalalignment='center',
      verticalalignment='center')
+plt.legend(loc="lower right", prop={'size': 10})
 
-plt.xlabel("RIN")
+plt.xlabel(r"$\sigma_{\alpha_I}$")
 plt.ylabel('Error')
 f.close()
 
@@ -187,16 +186,16 @@ plt.plot(xa,ta,label="Theory",color='blue')
 plt.plot(xa,spa,'r',alpha=0.2,label="Uncertainty")
 plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
-plt.legend(loc="lower right", prop={'size': 10})
+
 plt.yscale('log')
-plt.text(0.01, 0.09, 'd', horizontalalignment='center',
+plt.text(0.01, 0.07, 'd', horizontalalignment='center',
      verticalalignment='center')
 f.close()
 
-plt.xlabel("RIN")
+plt.xlabel(r"$\sigma_{\alpha_I}$")
 
 
-plt.savefig('int_1p_0414.pdf')
+plt.savefig('int_1p_0815.pdf')
 
 
 plt.show()
