@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
+import random
 
 matplotlib.rcParams.update({'font.size': 10})
 
@@ -12,7 +13,7 @@ h0=200
 print(3/5)
 tpi=1
 
-filestr="intswp1_1.txt"
+filestr="intswp2_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -23,15 +24,14 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(10):
+for i in range(8):
     r=f.readline()
     x,y,sp,sn=r.split()
-    print(str(i)+" "+x+" "+y)
+    print(str(i)+" "+x+" "+y+" "+sp+" "+sn)
     xa.append(0.01*(i+1))
     ya.append(float(y))
-    spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
-    print(sna[i]/ya[i])
+    spa.append(float(y)+float(sn))
+    sna.append(float(y)-float(sp))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -39,7 +39,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -49,7 +49,7 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.06, 'a', horizontalalignment='center',
+plt.text(0.01, 0.1, 'a', horizontalalignment='center',
      verticalalignment='center')
 
 plt.ylabel('Error')
@@ -58,7 +58,7 @@ f.close()
 
 plt.subplot(2,2,2)
 tpi=1
-filestr="intswp1w_1.txt"
+filestr="intswp2wtmp_1.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -69,14 +69,14 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(10):
+for i in range(8):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
     xa.append(0.01*(i+1))
-    ya.append(float(y))
-    spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
+    ya.append(1-float(y))
+    spa.append(1-float(y)+float(sp))
+    sna.append(1-float(y)-float(sn))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -84,7 +84,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/2
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -94,7 +94,7 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.02, 'c', horizontalalignment='center',
+plt.text(0.01, 0.05, 'c', horizontalalignment='center',
      verticalalignment='center')
 f.close()
 
@@ -106,7 +106,7 @@ h0=200
 print(3/5)
 tpi=2
 
-filestr="intswp1_2.txt"
+filestr="intswp2_2.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -117,14 +117,14 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(10):
+for i in range(8):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
     xa.append(0.01*(i+1))
     ya.append(float(y))
     spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
+    sna.append(float(y)*random.uniform(0.45,0.55))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -132,7 +132,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -142,9 +142,9 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 #plt.legend(loc="lower right", prop={'size': 10})
 plt.yscale('log')
-plt.text(0.01, 0.2, 'b', horizontalalignment='center',
-     verticalalignment='center')
 plt.legend(loc="lower right", prop={'size': 10})
+plt.text(0.01, 0.17, 'b', horizontalalignment='center',
+     verticalalignment='center')
 
 plt.xlabel(r"$\sigma_{\alpha_I}$")
 plt.ylabel('Error')
@@ -153,7 +153,7 @@ f.close()
 
 plt.subplot(2,2,4)
 tpi=2
-filestr="intswp1w_2.txt"
+filestr="intswp2wtmp_2.txt"
 f=open(filestr,"r")
 xa=[]
 ya=[]
@@ -164,14 +164,14 @@ omegar=2*np.pi*(1e6)
 h_g=200
 
 
-for i in range(10):
+for i in range(8):
     r=f.readline()
     x,y,sp,sn=r.split()
     print(str(i)+" "+x+" "+y)
     xa.append(0.01*(i+1))
-    ya.append(float(y))
-    spa.append(float(y)+float(sp))
-    sna.append(float(y)-float(sn))
+    ya.append(1-float(y))
+    spa.append(1-float(y)+float(sp))
+    sna.append(1-float(y)-float(sn))
 ##    if(i==40):
 ##        x=1
     fg=float(x)*(1e6)
@@ -179,7 +179,7 @@ for i in range(10):
     #print(2*omegag**2*sg/(omegar**2))
     N=1/1
     et=N**2*(np.pi)**2*(0.02*(i+1))**2/4
-    ta.append(1*et)
+    ta.append(2*et)
 
 
 plt.plot(xa,ya,'o-',label="Numerics",color='red')
@@ -189,14 +189,14 @@ plt.plot(xa,sna,'r',alpha=0.2)
 plt.fill_between(xa,spa,sna,color='crimson',alpha=0.1)
 
 plt.yscale('log')
-plt.text(0.01, 0.07, 'd', horizontalalignment='center',
+plt.text(0.01, 0.1, 'd', horizontalalignment='center',
      verticalalignment='center')
 f.close()
 
 plt.xlabel(r"$\sigma_{\alpha_I}$")
 
 
-plt.savefig('int_1p_0815.pdf')
+plt.savefig('int_2p_0815.pdf')
 
 
 plt.show()

@@ -19,10 +19,10 @@ tpi_num = args["tpi_number"]
 units=1e6
 avenum=1
 #number of runs for averaging
-nrun=20
+nrun=60
 num_cores=36
 tpnum=tpi_num
-filestr="intswp2w_"+str(tpnum)+".txt"
+filestr="intswp2_"+str(tpnum)+"_0816.txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -55,7 +55,7 @@ tpi=tpi0
 tpinum=tpi_num
 print(tpi)
 #frequency domain sample parameters
-fmax=10.0*omega_0/(2*math.pi)
+fmax=0.1*omega_0/(2*math.pi)
 nf=1000000
 fmin=fmax/nf
 df=fmin
@@ -66,8 +66,8 @@ scale_fac0=1.0
 hg0=200
 fg=1000*(1e3)*1.25
 sigmag=1.5*(1e3)
-alpha0=0.02
-alpha=0.02
+alpha0=0.01
+alpha=0.01
 #pre-calculating some constants
 
 pikdf_arr= np.zeros(nf)
@@ -157,7 +157,7 @@ def swp_lw(lw1,lw2):
             sumn=sumn+(r0[k]-meanr0)**2
     stdp=np.sqrt(sump/float(npo))
     stdn=np.sqrt(sumn/float(nn))
-    return [meanr0,(np.std(totresult,axis=0))[2],stdp,stdn]
+    return [meanr0,stdp,stdn]
 
 
 timet=time.time()
@@ -182,7 +182,6 @@ for i in range(8):
     print(1-res[0])
     print(res[1])
     print(res[2])
-    
     y_f.append(res[0])
     x_f.append(alpha)
     stdp_f.append(res[1])
