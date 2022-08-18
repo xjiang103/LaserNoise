@@ -31,7 +31,7 @@ tpi=tpi0
 #frequency domain sample parameters
 fmax0=0.1*omega_0/(2*math.pi)
 nf=1000000
-fmin=fmax/nf
+fmin=fmax0/nf
 df0=fmin
 
 #noise spectrum parameters
@@ -46,8 +46,7 @@ alpha=0.05
 
 pikdf_arr= np.zeros(nf)
 s_nu_arr= np.zeros(nf) 
-for k in range(nf):
-    pikdf_arr[k] = 2*np.pi*(k+1)*df
+
 
 np.random.seed()
 #function that returns the time-varying phasenoise
@@ -146,6 +145,8 @@ for i in range(20):
     fmax=(i+1)*fmax0
     df=(i+1)*df0
     #scale_fac=scale_fac_list[i]
+    for k in range(nf):
+        pikdf_arr[k] = 2*np.pi*(k+1)*df
 
     alpha=alpha0
     hg=alpha**2/fmax

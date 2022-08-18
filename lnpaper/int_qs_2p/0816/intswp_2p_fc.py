@@ -57,7 +57,7 @@ print(tpi)
 #frequency domain sample parameters
 fmax0=0.1*omega_0/(2*math.pi)
 nf=1000000
-fmin=fmax/nf
+fmin=fmax0/nf
 df0=fmin
 
 #noise spectrum parameters
@@ -73,8 +73,7 @@ alpha=0.01
 pikdf_arr= np.zeros(nf)
 s_nu_arr1= np.zeros(nf)
 s_nu_arr2= np.zeros(nf)
-for k in range(nf):
-    pikdf_arr[k] = 2*np.pi*(k+1)*df
+
 #Arrays for recording the population of the 0 and 1 level after pi pulse for
 #each run
 np.random.seed()
@@ -175,7 +174,8 @@ for i in range(20):
     fmax=(i+1)*fmax0
     df=(i+1)*df0
     #scale_fac=scale_fac_list[i]
-
+    for k in range(nf):
+        pikdf_arr[k] = 2*np.pi*(k+1)*df
     alpha=alpha0
     hg=2*alpha**2/fmax
     
