@@ -21,23 +21,29 @@ nnn=0.03
 y3a=[]
 for k in range(1):
     nnn=bwar[k]
-    f=open("intswp1_2_scan.txt","r")
+    f=open("intswp1_1_scan_0821_mix.txt","r")
     omega0=2*np.pi*1000000
     #nnn=1.00001
     bwa=[]
     ya=[]
     sna=[]
     spa=[]
+    quasi=[]
 
     yquasi=[]
-    for i in range(20):
+    for i in range(40):
         r=f.readline()
         x,y,sp,sn=r.split()
         bwa.append(float(x))
         ya.append(float(y))
+        N=1/2
+        et=N**2*(np.pi)**2*(1.414*0.05)**2/4
+        print(et)
+        quasi.append(et)
 
 
     plt.plot(bwa,ya,'o-',label="Numerics",color='red')
+    plt.plot(bwa,quasi,color='green')
     #plt.plot(xa,y2a,'-',label="Mark_static, bw="+str(nnn)+"Ω",color='blue')
     #plt.plot(bwa,y3a,'-',label="Master Equation",color='blue')
     #plt.plot(bwa,yquasi,'-',label="Static Gaussian",color='green')
