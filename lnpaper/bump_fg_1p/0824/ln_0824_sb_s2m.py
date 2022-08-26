@@ -15,7 +15,7 @@ parser.add_argument('-tpi','--tpi_number', help='Tpi_number', required=True, typ
 args = vars(parser.parse_args())
 tpi_num = args["tpi_number"]
 
-filestr="fswp_0824_s2_"+str(tpi_num)+".txt"
+filestr="fswp_0824_s2m_"+str(tpi_num)+".txt"
 f=open(filestr,"w")
 #number of runs for averaging
 nrun=200
@@ -82,7 +82,7 @@ def run_job():
                 [0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr)),0]]
 
     #intitial condition
-    y0=[0.7071+0.0j,0.0+1j*0.7071]
+    y0=[0.7071+0.0j,0.0-1j*0.7071]
     t0=[0,tpi]
 
     sol = solve_ivp(feq,t0,y0,rtol=1e-7,atol=3e-7)
@@ -93,7 +93,7 @@ def run_job():
     yf_init[1]=0.7071*(ytmp[0]+1j*ytmp[1])
     yf=tuple(yf_init)
     #print(yf)
-    return [(abs(yf[0]))**2,(abs(yf[1]))**2]
+    return [(abs(yf[1]))**2,(abs(yf[0]))**2]
 
 #linewidth sweep
 def swp_lw(lw):

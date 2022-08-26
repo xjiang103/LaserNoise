@@ -82,14 +82,16 @@ def run_job():
                 [0.5*1j*omega*np.exp(-1j*phigen(t,phase_arr)),0]]
 
     #intitial condition
-    y0=[np.sqrt(2)/2.0+0.0j,np.sqrt(2)/2.0+0.0j]
+    y0=[0.7071+0.0j,0.7071+0.0j]
     t0=[0,tpi]
 
     sol = solve_ivp(feq,t0,y0,rtol=1e-7,atol=3e-7)
     yf=(sol.y[0][-1],sol.y[1][-1])
-    ytmp=yf
-    yf[0]=(np.sqrt/2.0)*(ytmp[0]+ytmp[1])
-    yf[1]=(np.sqrt/2.0)*(ytmp[0]+ytmp[1])
+    ytmp=list(yf)
+    yf_init=list(yf)
+    yf_init[0]=0.7071*(ytmp[0]+ytmp[1])
+    yf_init[1]=0.7071*(ytmp[0]-ytmp[1])
+    yf=tuple(yf_init)
     #print(yf)
     return [(abs(yf[0]))**2,(abs(yf[1]))**2]
 
