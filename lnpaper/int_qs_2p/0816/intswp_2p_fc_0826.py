@@ -22,7 +22,7 @@ avenum=1
 nrun=60
 num_cores=36
 tpnum=tpi_num
-filestr="intswp2_"+str(tpnum)+"_scan.txt"
+filestr="intswp2_"+str(tpnum)+"_scan_0826.txt"
 f=open(filestr,"w")
 
 #rabi parameters
@@ -55,7 +55,7 @@ tpi=tpi0
 tpinum=tpi_num
 print(tpi)
 #frequency domain sample parameters
-fmax0=0.1*omega_0/(2*math.pi)
+fmax0=(0.1/20)*omega_0/(2*math.pi)
 nf=1000000
 fmin=fmax0/nf
 df0=fmin
