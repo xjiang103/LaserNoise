@@ -1,0 +1,75 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import operator
+import sys
+sys.path.insert(0,'F:/DMD/DMDtest/ALP4')
+from ALP4 import *
+import time
+
+# Load the Vialux .dll
+DMD = ALP4(version = '4.3', libDir = 'F:/DMD/ALP-4.3/ALP-4.3 API')
+# Initialize the device
+DMD.Initialize()
+
+# Binary amplitude image (0 or 1)
+bitDepth = 1
+gratingperiod=5
+
+xoffset=300
+yoffset=300
+dx=2500
+dy=2500
+flen=75000
+
+mx=3
+my=3
+x=(xoffset+dx*mx-yoffset-dy*my)/np.sqrt(2)
+y=(xoffset+dx*mx+yoffset+dy*my)/np.sqrt(2)
+thetax=x/flen
+thetay=y/flen
+
+d=12.7
+
+print(DMD.nSizeY)
+print(DMD.nSizeX)
+
+imggrating = np.ones([DMD.nSizeY,DMD.nSizeX])*(2**8-1)
+# for i in range(DMD.nSizeY):
+#     for j in range(DMD.nSizeX):
+#         phaseij=int((j*d*np.sin(thetax)+i*d*np.sin(thetay))/0.632)%2-1/2
+#         if phaseij>0:
+#             imggrating[i,j]=(2**8-1)*1
+#         else:
+#             imggrating[i,j]=0
+
+#plt.imshow(imggrating);
+#plt.colorbar()
+#plt.show()
+
+imgSeq = imggrating.ravel()
+
+
+#imgBlack = np.zeros([DMD.nSizeY,DMD.nSizeX])
+#imgWhite = np.ones([DMD.nSizeY,DMD.nSizeX])*(2**8-1)
+#imgSeq  = np.concatenate([imgBlack.ravel(),imgWhite.ravel()])
+
+# Allocate the onboard memory for the image sequence
+DMD.SeqAlloc(nbImg = 1, bitDepth = bitDepth)
+# S   end the image sequence as a 1D list/array/numpy array
+DMD.SeqPut(imgData = imgSeq)
+# Set image rate to 50 Hz
+DMD.SetTiming(illuminationTime = 20000)
+
+# Run the sequence in an infinite loop
+DMD.Run()
+
+time.sleep(35)
+
+# Stop the sequence display
+DMD.Halt()
+# Free the sequence from the onboard memory
+DMD.FreeSeq()
+# De-allocate the device
+DMD.Free()
+
+print("program ends")

@@ -1,0 +1,5 @@
+import numpy as np
+
+jj=sum(np.random.binomial(1,0.3,1))
+
+print(jj)

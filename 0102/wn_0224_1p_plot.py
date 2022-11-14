@@ -101,9 +101,9 @@ axs[1].text(0.1, 0.9, 'b', horizontalalignment='center',
      verticalalignment='center', transform=axs[1].transAxes)
 f.close()
 
-plt.xlabel("$h_0$")
+plt.xlabel("$h_0/({\mathrm{Hz}}^2/\mathrm{Hz})$")
 plt.ylabel('Error')
 fig.show()
 
-plt.savefig('wn_1p_78.pdf', bbox_inches='tight')
+plt.savefig('wn_1p_0321.pdf', bbox_inches='tight')
 

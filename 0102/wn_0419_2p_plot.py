@@ -2,6 +2,19 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
+##pgf_with_latex = {                      # setup matplotlib to use latex for output
+##    "pgf.texsystem": "pdflatex",        # change this if using xetex or lautex
+##    "text.usetex": True,                # use LaTeX to write all text
+##    "pgf.preamble": [
+##        r"\usepackage[utf8x]{inputenc}",    # use utf8 fonts 
+##        r"\usepackage[T1]{fontenc}",        # plots will be generated
+##        r"\usepackage{siunitx}",
+##        ]                                   # using this preamble
+##    }
+##matplotlib.use("pgf")
+##matplotlib.rcParams.update(pgf_with_latex)
+
+
 matplotlib.rcParams.update({'font.size': 12})
 fig = plt.figure()
 fig.set_size_inches(3.375,3.375*2)
@@ -101,7 +114,7 @@ axs[1].text(0.1, 0.9, 'b', horizontalalignment='center',
      verticalalignment='center', transform=axs[1].transAxes)
 f.close()
 
-plt.xlabel("$h_0$")
+plt.xlabel("$h_0/({\mathrm{Hz}}^2/\mathrm{Hz})$")
 plt.ylabel('Error')
 fig.show()
 

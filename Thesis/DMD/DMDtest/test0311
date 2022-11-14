@@ -1,0 +1,130 @@
+import numpy as np
+from operator import xor
+import matplotlib.image as img
+import matplotlib.pyplot as plt
+import operator
+import sys
+sys.path.insert(0,'F:/DMD/DMDtest/ALP4')
+from ALP4 import *
+import time
+
+def rgb2gray(rgb):
+
+    r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
+    gray = 1-(0.2989 * r + 0.5870 * g + 0.1140 * b)
+
+    return gray
+
+
+def regulate(arr,sizex,sizey,cfconstant):
+    arr1=arr
+    for i in range(sizex):
+        for j in range(sizey):
+            if arr1[i,j]<cfconstant:
+                arr1[i,j]=0
+    return arr1
+
+def normalize(arr,sizex,sizey):
+    arr1=arr
+    arr1max=np.amax(arr1)
+    arr1min=np.amin(arr1)
+    arr1=(arr1+abs(arr1min))/(arr1max+abs(arr1min))
+    return arr1
+
+def binarize(arr,sizex,sizey,c2,c3):
+    arr1=arr
+    for i in range(sizex):
+        for j in range(sizey):
+            if arr1[i,j]>c2:
+                arr1[i,j]=1
+            else:
+                arr1[i,j]==sum(np.random.binomial(1,c3*arr1[i,j],1))
+    return arr1
+
+def showimg(arr):
+    arr1=arr
+    plt.imshow(arr1);
+    plt.colorbar()
+    plt.show()
+    return
+
+def ditherimg(arr,dithercnt,sizex,sizey):
+    arr1=arr
+    for cnt in range(dithercnt):
+        for i in range(sizex-1):
+            for j in range(sizey-1):
+                arr1[i,j]=(arr1[i,j]+arr1[i,j+1])/2
+                arr1[i,j]=(arr1[i,j]+arr1[i+1,j])/2
+    return arr1
+
+
+image = img.imread('C:/Users/xjian/Desktop/wtest.png')
+imggray=rgb2gray(image)
+print(imggray.shape)
+
+lenx=len(imggray)
+leny=len(imggray[0])
+cf1=0.006
+cf2=0.95
+cf3=0.5
+dithercnt=12
+
+ditherimg(imggray,dithercnt,lenx,leny)
+#showimg(imggray)
+
+hol=np.fft.ifft2(imggray)*np.sqrt(100)
+hol=np.real(hol)
+
+hol=regulate(hol,lenx,leny,cf1)
+#showimg(hol)
+hol=normalize(hol,lenx,leny)
+#showimg(hol)
+hol=binarize(hol,lenx,leny,cf2,cf3)
+#showimg(hol)
+
+imgreal=abs(np.fft.fft2(hol)/(100))**2
+showimg(imgreal)
+
+
+
+DMD = ALP4(version = '4.3', libDir = 'F:/DMD/ALP-4.3/ALP-4.3 API')
+# Initialize the device
+DMD.Initialize()
+
+# Binary amplitude image (0 or 1)
+bitDepth = 1
+
+print(DMD.nSizeX)
+print(DMD.nSizeY)
+
+imggrating=np.pad(hol,((0,0),(int((DMD.nSizeX-lenx)/2),int((DMD.nSizeX-lenx)/2))),'minimum')
+
+print(imggrating.shape)
+
+imgSeq = imggrating.ravel()
+
+
+#imgBlack = np.zeros([DMD.nSizeY,DMD.nSizeX])
+#imgWhite = np.ones([DMD.nSizeY,DMD.nSizeX])*(2**8-1)
+#imgSeq  = np.concatenate([imgBlack.ravel(),imgWhite.ravel()])
+
+# Allocate the onboard memory for the image sequence
+DMD.SeqAlloc(nbImg = 1, bitDepth = bitDepth)
+# S   end the image sequence as a 1D list/array/numpy array
+DMD.SeqPut(imgData = imgSeq)
+# Set image rate to 50 Hz
+DMD.SetTiming(illuminationTime = 20000)
+
+# Run the sequence in an infinite loop
+DMD.Run()
+
+time.sleep(25)
+
+# Stop the sequence display
+DMD.Halt()
+# Free the sequence from the onboard memory
+DMD.FreeSeq()
+# De-allocate the device
+DMD.Free()
+
+print("program ends")
